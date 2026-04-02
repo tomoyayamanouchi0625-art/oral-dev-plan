@@ -105,7 +105,7 @@
 <div class="sc"><div class="sh"><div class="st">患者基本情報</div></div><div class="sb2">
 <div class="inf">各帳票のヘッダに反映される基本情報です。</div>
 <div class="fg">
-<div class="fi"><label>カルテNo.</label><input type="text" id="fK"></div>
+<div class="fi"><label>カルテNo.</label><input type="text" id="fK" oninput="this.value=this.value.replace(/[０-９]/g,function(s){return String.fromCharCode(s.charCodeAt(0)-0xFEE0)})"></div>
 <div class="fi"><label>患者氏名</label><input type="text" id="fN"></div>
 <div class="fi"><label>ふりがな</label><input type="text" id="fF"></div>
 <div class="fi"><label>生年月日</label><input type="date" id="fBD" value="2020-01-01" onchange="calcAge()"></div>
@@ -155,8 +155,8 @@
 
 <div class="sc"><div class="sh"><div class="st">帳票出力</div></div><div class="sb2">
 <div style="display:flex;flex-direction:column;gap:12px">
-<button class="btn bp" onclick="doPDF()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">📄 PDF保存（ダウンロード）</button>
-<button class="btn bo" onclick="doPrint()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">🖨 直接印刷</button>
+<button class="btn bp" onclick="doPDF()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">📄 PDF保存（印刷画面で「PDFに保存」を選択）</button>
+<button class="btn bo" onclick="doPrint()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">🖨 直接印刷（プリンターを選択）</button>
 </div>
 </div></div>
 </main>
@@ -422,25 +422,40 @@ th{background:#f1f5f9;font-weight:600}
   return h;
 }
 
-// ===== Output: PDF save = open new window with title for "save as PDF" =====
-function doPDF(){
-  const html=mkHTML();
-  const w=window.open('','_blank');
-  if(!w){alert('ポップアップを許可してください');return;}
-  w.document.write(html);
-  w.document.close();
-  // Do NOT auto-print for PDF save — user saves via browser menu or Ctrl+S
+// ===== Output functions (iPad/tablet compatible) =====
+function openOutput(){
+  var html=mkHTML();
+  // Use hidden iframe for reliable print on iPad
+  var id='printFrame';
+  var old=document.getElementById(id);
+  if(old)old.remove();
+  var iframe=document.createElement('iframe');
+  iframe.id=id;
+  iframe.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
+  document.body.appendChild(iframe);
+  var doc=iframe.contentWindow.document;
+  doc.open();doc.write(html);doc.close();
+  return iframe;
 }
 
-// ===== Output: Print = open and auto-print =====
+function doPDF(){
+  var iframe=openOutput();
+  // Wait for content to render then trigger print
+  setTimeout(function(){
+    try{
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+    }catch(e){
+      // Fallback: open in new tab
+      var w=window.open('','_blank');
+      if(w){w.document.write(mkHTML());w.document.close();}
+      else{alert('ポップアップを許可してください');}
+    }
+  },800);
+}
+
 function doPrint(){
-  const html=mkHTML();
-  const w=window.open('','_blank');
-  if(!w){alert('ポップアップを許可してください');return;}
-  w.document.write(html);
-  w.document.close();
-  w.onload=function(){setTimeout(function(){w.print();},600);};
-  setTimeout(function(){try{w.print();}catch(e){}},1500);
+  doPDF();
 }
 
 bCL();bTR();calcAge();
