@@ -337,7 +337,7 @@ function gP(){
     t+='\n【管理方針】\n適切な指導・訓練を実施し保護者への情報提供と動機づけを行います。\n定期的な評価を行い計画を見直します。\n\n【治療予定】\n';
     probs.forEach(p=>{const pi=EL('pl_'+p.id);t+=`・${p.t} → ${pi?.value||'指導・訓練'}\n`})}
   EL('fG').value=t;
-  var ta=EL('fG');ta.style.height='auto';ta.style.height=ta.scrollHeight+'px';
+  setTimeout(function(){var ta=EL('fG');if(ta){ta.style.height='auto';ta.style.height=Math.max(120,ta.scrollHeight)+'px';}},50);
 }
 
 function bTR(){
@@ -357,10 +357,10 @@ function mkHTML(){
 
   let h=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${title}</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans JP',sans-serif;color:#1e293b;font-size:9px;line-height:1.35}
-.pg{width:210mm;min-height:270mm;overflow:hidden;padding:10mm 12mm;page-break-after:always;page-break-inside:avoid;position:relative}
+body{font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;color:#1e293b;font-size:9px;line-height:1.35;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+@page{size:A4;margin:0}
+.pg{width:210mm;box-sizing:border-box;padding:10mm 12mm;page-break-after:always}
 .pg:last-child{page-break-after:auto}
 h1{font-size:13px;text-align:center;margin-bottom:6px;border-bottom:2px solid #1e293b;padding-bottom:3px}
 h2{font-size:10px;margin:5px 0 3px;padding:2px 5px;background:#f1f5f9;border-left:3px solid #2563eb}
@@ -436,17 +436,14 @@ th{background:#f1f5f9;font-weight:600}
 function doPDF(){
   var html=mkHTML();
   var w=window.open('','_blank');
-  if(!w){alert('ポップアップを許可してください。ブラウザの設定でポップアップを許可してから再度お試しください。');return;}
+  if(!w){alert('ポップアップを許可してください。');return;}
   w.document.write(html);
   w.document.close();
-  // Auto trigger print after load
-  var printed=false;
-  w.onload=function(){
-    if(!printed){printed=true;setTimeout(function(){w.print();},700);}
-  };
+  // Wait for page to fully render, then print
+  // Use longer delay to ensure fonts are loaded
   setTimeout(function(){
-    if(!printed){printed=true;try{w.print();}catch(e){}}
-  },2000);
+    try{w.focus();w.print();}catch(e){}
+  },1500);
 }
 
 function doPrint(){
