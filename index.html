@@ -13,7 +13,7 @@
 .hb{display:flex;align-items:center;gap:14px}
 .hb .logo{font-family:'Outfit',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.5px}
 .hcs{display:flex;gap:10px;flex-wrap:wrap}
-.hc{display:flex;align-items:stretch;border-radius:8px;overflow:hidden;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);transition:all .4s ease}
+.hc{display:flex;align-items:stretch;border-radius:8px;font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);transition:all .4s ease}
 .hc-l{padding:7px 14px;display:flex;align-items:center;white-space:nowrap;gap:6px;transition:all .4s ease}
 .hc-v{padding:7px 16px;display:flex;align-items:center;white-space:nowrap;border-left:1px solid rgba(255,255,255,.15);transition:all .4s ease;font-size:12px}
 .hc.off .hc-l{opacity:.7}.hc.off .hc-v{background:rgba(255,255,255,.06);color:rgba(255,255,255,.55)}
@@ -84,7 +84,7 @@
 .ck{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px}
 .ck input[type=checkbox]{accent-color:var(--p);width:16px;height:16px}
 @media(max-width:1024px){.fg{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}.ct th,.ct td{padding:10px 8px;font-size:12px}.et button{padding:6px 14px;font-size:12px}.ti{padding:10px 14px}.tn{font-size:14px}.ro{padding:10px 16px;font-size:14px}.btn{padding:12px 24px;font-size:15px}.ck{font-size:14px}.ck input[type=checkbox]{width:20px;height:20px}.fi input,.fi select{padding:10px 12px;font-size:15px}}
-@media(max-width:768px){.ht{flex-direction:column;gap:10px}.hcs{justify-content:center;width:100%}.hc{flex:1;min-width:0}.hc-l,.hc-v{font-size:11px}.fg{grid-template-columns:1fr}.mn{padding:12px}.sb2{padding:16px}}
+@media(max-width:768px){.ht{flex-direction:column;gap:10px}.hcs{justify-content:center;width:100%;flex-wrap:wrap}.hc{min-width:auto;overflow:visible}.hc-l{padding:5px 8px;font-size:10px}.hc-v{padding:5px 10px;font-size:10px}.fg{grid-template-columns:1fr}.mn{padding:12px}.sb2{padding:16px}}
 @media print{body{background:#fff}.app-header,.xb,.sc:not(.pt),.no-print{display:none!important}.pt{box-shadow:none;border:none}}
 </style>
 </head>
