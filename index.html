@@ -430,50 +430,67 @@ th{background:#f1f5f9;font-weight:600}
 
 // ===== Output =====
 function doPDF(){
-  var html=mkHTML();
-  // Create hidden container, render HTML, convert to PDF
-  var container=document.createElement('div');
-  container.style.cssText='position:absolute;left:-9999px;top:0;';
-  container.innerHTML='';
-  document.body.appendChild(container);
+  var items=gCL();
+  var nm=GV('fN'),ka=GV('fK'),sx=QS('input[name=sx]:checked')?.value||'',ed=GV('fDT'),bd=GV('fBD'),ct=QS('input[name=ct]:checked')?.value||'',wn=isP()?'離乳完了後':'離乳完了前';
+  var fd=function(d){if(!d)return'';var p=d.split('-');return p[0]+'年'+parseInt(p[1])+'月'+parseInt(p[2])+'日';};
+  var as2=AGE_Y+'歳'+(AGE_M?AGE_M+'ヶ月':'');
+  var fn=(ka?ka+'_':'')+(nm||'口腔機能発達不全症')+'.pdf';
+  var S='border:1px solid #cbd5e1;padding:2px 4px;font-size:8px;';
+  var TH=S+'background:#f1f5f9;font-weight:600;';
+  var HI='border:none;padding:1px 4px;';
+  var H2='font-size:10px;margin:5px 0 3px;padding:2px 5px;background:#f1f5f9;border-left:3px solid #2563eb;font-weight:600;';
 
-  // Parse the HTML and extract body content
-  var parser=new DOMParser();
-  var doc2=parser.parseFromString(html,'text/html');
-  var pages=doc2.querySelectorAll('.pg');
+  var el=document.createElement('div');
+  el.style.cssText='position:fixed;left:0;top:0;width:794px;background:#fff;z-index:99999;font-family:sans-serif;color:#1e293b;font-size:9px;line-height:1.35;';
 
-  // Create a wrapper with proper styling
-  var wrapper=document.createElement('div');
-  wrapper.style.cssText='width:210mm;font-family:"Noto Sans JP",sans-serif;color:#1e293b;font-size:9px;line-height:1.35;';
+  // P1
+  var h='<div style="padding:38px 45px;min-height:1100px;page-break-after:always">';
+  h+='<div style="font-size:13px;text-align:center;border-bottom:2px solid #1e293b;padding-bottom:3px;margin-bottom:6px;font-weight:700">チェックリスト記録用紙（'+wn+'）</div>';
+  h+='<table style="width:100%;border-collapse:collapse;margin-bottom:4px"><tr><td style="'+HI+'color:#64748b;font-size:7px">No.</td><td style="'+HI+'font-weight:600;font-size:9px">'+ka+'</td><td style="'+HI+'color:#64748b;font-size:7px">氏名</td><td style="'+HI+'font-weight:600;font-size:9px">'+nm+'</td><td style="'+HI+'color:#64748b;font-size:7px">年齢</td><td style="'+HI+'font-weight:600;font-size:9px">'+as2+'</td><td style="'+HI+'color:#64748b;font-size:7px">性別</td><td style="'+HI+'font-weight:600;font-size:9px">'+sx+'</td></tr><tr><td style="'+HI+'color:#64748b;font-size:7px">生年月日</td><td style="'+HI+'font-weight:600;font-size:9px">'+fd(bd)+'</td><td style="'+HI+'color:#64748b;font-size:7px">診察日</td><td style="'+HI+'font-weight:600;font-size:9px">'+fd(ed)+'</td><td style="'+HI+'color:#64748b;font-size:7px">区分</td><td style="'+HI+'font-weight:600;font-size:9px">'+ct+'</td><td></td><td></td></tr></table>';
+  h+='<table style="width:100%;border-collapse:collapse;margin-bottom:4px"><thead><tr><th style="'+TH+'">A機能</th><th style="'+TH+'">B分類</th><th style="'+TH+'">C項目</th><th style="'+TH+'">D該当項目</th><th style="'+TH+'">評価</th></tr></thead><tbody>';
+  var pf3='',pc3='';
+  items.forEach(function(it){h+='<tr>';
+    if(it.f!==pf3){var rs=items.filter(function(x){return x.f===it.f}).length;h+='<td rowspan="'+rs+'" style="'+S+'font-weight:600;background:#eff6ff">'+it.f+'</td>';pf3=it.f;}
+    if(it.c!==pc3){var rs2=items.filter(function(x){return x.c===it.c}).length;h+='<td rowspan="'+rs2+'" style="'+S+'">'+it.c+'</td>';pc3=it.c;}
+    var v=CS[it.id]||'ok';var txt=it.t;if(it.fr){var fte=EL('ft_'+it.id);if(fte&&fte.value)txt+='（'+fte.value+'）';}
+    h+='<td style="'+S+'font-weight:600;color:#2563eb">'+it.id+'</td><td style="'+S+'">'+txt+'</td><td style="'+S+(v==='problem'?'color:#dc2626;font-weight:600':'')+'">'+( v==='problem'?'☑ あり':'□ 問題なし')+'</td></tr>';});
+  h+='</tbody></table>';
+  var lv=GV('fLP'),tv=GV('fTP2');
+  if(lv||tv){h+='<table style="width:100%;border-collapse:collapse;margin-bottom:4px"><tr><th style="'+TH+'">検査項目</th><th style="'+TH+'">測定値</th><th style="'+TH+'">判定</th></tr>';
+    if(lv){var lt=getLipTh();h+='<tr><td style="'+S+'">口唇閉鎖力検査</td><td style="'+S+'">'+lv+' N</td><td style="'+S+(lt!==null&&parseFloat(lv)<=lt?'color:#dc2626;font-weight:600':'')+'">'+(lt!==null?(parseFloat(lv)<=lt?'低下':'正常'):'—')+'</td></tr>';}
+    if(tv){var tt=getTpTh();h+='<tr><td style="'+S+'">舌圧検査</td><td style="'+S+'">'+tv+' kPa</td><td style="'+S+(tt!==null&&parseFloat(tv)<tt?'color:#dc2626;font-weight:600':'')+'">'+(tt!==null?(parseFloat(tv)<tt?'低下':'正常'):'—')+'</td></tr>';}
+    h+='</table>';}
+  var tot=items.filter(function(x){return CS[x.id]==='problem'}).length;
+  var dx4=EL('dR').textContent.indexOf('該当')>=0&&EL('dR').textContent.indexOf('非')<0;
+  h+='<div style="text-align:center;padding:5px;margin:4px 0;border:2px solid '+(dx4?'#ef4444':'#cbd5e1')+';border-radius:4px;'+(dx4?'background:#fef2f2':'')+'"><div style="font-size:9px">D該当項目数: <b style="font-size:14px">'+tot+'</b></div><div style="font-size:12px;font-weight:700;margin-top:2px">'+(dx4?'口腔機能発達不全症　該当':'非該当')+'</div></div></div>';
 
-  // Copy styles
-  var style=document.createElement('style');
-  var styleEl=doc2.querySelector('style');
-  if(styleEl)style.textContent=styleEl.textContent;
-  wrapper.appendChild(style);
+  // P2
+  h+='<div style="padding:38px 45px;min-height:1100px;page-break-after:always">';
+  h+='<div style="font-size:13px;text-align:center;border-bottom:2px solid #1e293b;padding-bottom:3px;margin-bottom:6px;font-weight:700">管理計画書</div>';
+  h+='<table style="width:100%;border-collapse:collapse;margin-bottom:4px"><tr><td style="'+HI+'color:#64748b;font-size:7px">No.</td><td style="'+HI+'font-weight:600;font-size:9px">'+ka+'</td><td style="'+HI+'color:#64748b;font-size:7px">氏名</td><td style="'+HI+'font-weight:600;font-size:9px">'+nm+'</td><td style="'+HI+'color:#64748b;font-size:7px">年齢</td><td style="'+HI+'font-weight:600;font-size:9px">'+as2+'</td><td style="'+HI+'color:#64748b;font-size:7px">性別</td><td style="'+HI+'font-weight:600;font-size:9px">'+sx+'</td></tr></table>';
+  h+='<div style="'+H2+'">管理計画</div><table style="width:100%;border-collapse:collapse;margin-bottom:4px"><thead><tr><th style="'+TH+'">項目</th><th style="'+TH+'">評価</th><th style="'+TH+'">管理の計画</th></tr></thead><tbody>';
+  items.forEach(function(it){var v=CS[it.id]||'ok';var pi=EL('pl_'+it.id);var txt2=it.id+' '+it.t;if(it.fr){var fte2=EL('ft_'+it.id);if(fte2&&fte2.value)txt2+='（'+fte2.value+'）';}
+    h+='<tr><td style="'+S+'">'+txt2+'</td><td style="'+S+(v==='problem'?'color:#dc2626;font-weight:600':'')+'">'+(v==='problem'?'あり':'問題なし')+'</td><td style="'+S+'">'+(v==='problem'?(pi?.value||'指導・訓練'):'')+'</td></tr>';});
+  h+='</tbody></table>';
+  h+='<div style="'+H2+'">管理方針・目標・治療予定等</div><div style="white-space:pre-wrap;font-size:8px;line-height:1.4;border:1px solid #cbd5e1;padding:4px">'+GV('fG')+'</div>';
+  h+='<div style="'+H2+'">再評価の時期・治療目安期間</div><table style="width:100%;border-collapse:collapse;margin-bottom:4px"><tr><td style="'+S+'">治療目安期間</td><td style="'+S+'">('+GV('fTP')+')ヶ月</td><td style="'+S+'">再評価</td><td style="'+S+'">約('+GV('fRP')+')ヶ月後</td></tr><tr><td style="'+S+'">来院間隔</td><td style="'+S+'">('+GV('fVI')+')ヶ月ごと</td><td style="'+S+'">写真撮影</td><td style="'+S+'">('+GV('fPI')+')ヶ月ごと</td></tr></table>';
+  var mm=GV('fMemo');if(mm)h+='<div style="'+H2+'">自由記載</div><div style="white-space:pre-wrap;font-size:8px;line-height:1.4;border:1px solid #cbd5e1;padding:4px">'+mm+'</div>';
+  h+='</div>';
 
-  pages.forEach(function(pg){wrapper.appendChild(pg.cloneNode(true));});
-  container.appendChild(wrapper);
+  // P3
+  h+='<div style="padding:38px 45px;min-height:1100px">';
+  h+='<div style="font-size:13px;text-align:center;border-bottom:2px solid #1e293b;padding-bottom:3px;margin-bottom:6px;font-weight:700">保護者向けトレーニング資料</div>';
+  h+='<table style="width:100%;border-collapse:collapse;margin-bottom:4px"><tr><td style="'+HI+'color:#64748b;font-size:7px">氏名</td><td style="'+HI+'font-weight:600;font-size:9px">'+nm+'</td><td style="'+HI+'color:#64748b;font-size:7px">年齢</td><td style="'+HI+'font-weight:600;font-size:9px">'+as2+'</td><td style="'+HI+'color:#64748b;font-size:7px">診察日</td><td style="'+HI+'font-weight:600;font-size:9px">'+fd(ed)+'</td></tr></table>';
+  h+='<div style="background:#eff6ff;padding:5px 8px;border-radius:4px;margin:5px 0;font-size:9px">お子さまの口腔機能の発達を促すトレーニングです。毎日続けましょう。</div>';
+  var ht=false;Object.entries(TR).forEach(function(e){var k=e[0],cat=e[1];var sel=ST[k]||[];if(sel.length){ht=true;h+='<div style="'+H2+'">'+cat.l+'</div>';sel.forEach(function(sx4){var it=cat.i.find(function(z){return z.x===sx4});if(it)h+='<div style="padding:2px 0;border-bottom:1px dotted #e2e8f0;font-size:9px"><b>'+it.n+'</b> — '+it.d+'</div>';});}});
+  if(!ht)h+='<div style="text-align:center;color:#94a3b8;padding:20px;font-size:9px">トレーニング未選択</div>';
+  h+='<div style="margin-top:8px;border-top:1px solid #e2e8f0;padding-top:4px"><b style="font-size:9px">メモ</b><div style="border:1px solid #e2e8f0;height:100px;margin-top:3px;border-radius:4px"></div></div></div>';
 
-  var ka=GV('fK'),nm=GV('fN');
-  var filename=(ka?ka+'_':'')+(nm||'口腔機能発達不全症')+'.pdf';
-
-  html2pdf().set({
-    margin:0,
-    filename:filename,
-    image:{type:'jpeg',quality:0.98},
-    html2canvas:{scale:2,useCORS:true,letterRendering:true},
-    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
-    pagebreak:{mode:['css','legacy'],avoid:'.dx'}
-  }).from(wrapper).save().then(function(){
-    document.body.removeChild(container);
-  }).catch(function(){
-    document.body.removeChild(container);
-    // Fallback: open in new window
-    var w=window.open('','_blank');
-    if(w){w.document.write(html);w.document.close();}
-    else alert('PDFの生成に失敗しました。');
-  });
+  el.innerHTML=h;
+  document.body.appendChild(el);
+  setTimeout(function(){
+    html2pdf().set({margin:0,filename:fn,image:{type:'jpeg',quality:0.95},html2canvas:{scale:2,useCORS:true,logging:false,width:794},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css']}}).from(el).save().then(function(){document.body.removeChild(el);}).catch(function(err){document.body.removeChild(el);alert('PDF生成エラー');});
+  },200);
 }
 
 function doPrint(){
