@@ -147,16 +147,16 @@
 <div class="sst">離乳完了状況</div>
 <div class="rg"><label class="ro sel" onclick="sR(this);bCL()"><input type="radio" name="wn" value="後" checked>離乳完了後（18ヶ月以降）</label><label class="ro" onclick="sR(this);bCL()"><input type="radio" name="wn" value="前">離乳完了前</label></div>
 <div class="sst">小児口腔機能管理料「算定要件の確認」</div>
-<label class="ck"><input type="checkbox" id="fBR" checked onchange="cD()">検査項目以外の算定要件を満たす（歯科疾患管理料の算定あり等）</label>
+<label class="ck"><input type="checkbox" id="fBR" checked onchange="cD()">検査項目以外の算定要件を満たす</label>
 <p style="font-size:12px;color:var(--g500);margin-top:4px">検査項目以外の算定要件を満たしていない場合はチェックを外してください。</p>
 </div></div>
 
 <div class="sc"><div class="sh"><div class="sn">03</div><div class="st" id="cT">チェックリスト評価（離乳完了後）</div></div><div class="sb2">
 <div class="inf">各項目の「問題なし」「あり」を選択してください。</div>
 <div id="cB"></div>
-<div class="sst">口唇閉鎖力検査（小児口唇閉鎖力検査 100点・3月に1回）</div>
+<div class="sst">口唇閉鎖力検査</div>
 <div class="fg"><div class="fi"><label>口唇閉鎖力（N）</label><input type="number" id="fLP" step="0.1" onchange="cD()"></div><div class="fi"><label>判定</label><div id="lR" style="font-size:13px;color:var(--g500)">測定値を入力してください</div></div></div>
-<div class="sst">舌圧検査（舌圧検査 140点・3月に1回）</div>
+<div class="sst">舌圧検査</div>
 <div class="fg"><div class="fi"><label>舌圧（kPa）</label><input type="number" id="fTP2" step="0.1" onchange="cD()"></div><div class="fi"><label>判定</label><div id="tpR" style="font-size:13px;color:var(--g500)">測定値を入力してください</div></div></div>
 <div class="db" id="dB">
 <div class="dc" id="dC">0</div>
@@ -215,28 +215,29 @@ const POST=[
 {f:'食べる',c:'咀嚼機能',id:'C-4',t:'強く咬みしめられない',g:'A'},
 {f:'食べる',c:'咀嚼機能',id:'C-5',t:'咀嚼時間が長すぎる、短すぎる',g:'A'},
 {f:'食べる',c:'咀嚼機能',id:'C-6',t:'偏咀嚼がある',g:'A'},
-{f:'食べる',c:'嚥下機能',id:'C-7',t:'舌の突出（乳児嚥下の残存）がみられる',g:'B'},
-{f:'食べる',c:'食行動',id:'C-8',t:'食べる量・回数にムラがある等',g:'B'},
-{f:'話す',c:'構音機能',id:'C-9',t:'構音に障害がある（音の置換、省略、歪み等）',g:'B'},
-{f:'話す',c:'構音機能',id:'C-10',t:'口唇の閉鎖不全がある',g:'B'},
+{f:'食べる',c:'嚥下機能',id:'C-7',t:'舌の突出（乳児嚥下の残存）がみられる（離乳完了後）',g:'B'},
+{f:'食べる',c:'食行動',id:'C-8',t:'哺乳量・食べる量、回数が多すぎたり少なすぎたりムラがあるなど',g:'B'},
+{f:'話す',c:'構音機能',id:'C-9',t:'構音に障害がある（音の置換、省略、歪みなどがある）',g:'B'},
+{f:'話す',c:'構音機能',id:'C-10',t:'口唇の閉鎖不全がある（安静時に口唇閉鎖を認めない）',g:'B'},
 {f:'話す',c:'構音機能',id:'C-11',t:'口腔習癖がある',g:'B'},
 {f:'話す',c:'構音機能',id:'C-12',t:'舌小帯に異常がある',g:'B'},
 {f:'その他',c:'栄養（体格）',id:'C-13',t:'やせ、または肥満である',g:'B'},
 {f:'その他',c:'その他',id:'C-14',t:'口呼吸がある',g:'B'},
 {f:'その他',c:'その他',id:'C-15',t:'口蓋扁桃等に肥大がある',g:'B'},
 {f:'その他',c:'その他',id:'C-16',t:'睡眠時のいびきがある',g:'B'},
-{f:'その他',c:'その他',id:'C-17',t:'上記以外の問題点',g:'B',fr:1}];
+{f:'その他',c:'その他',id:'C-17',t:'舌を口蓋に押しつける力が弱い（低舌圧である）',g:'B'},
+{f:'その他',c:'その他',id:'C-18',t:'上記以外の問題点',g:'B',fr:1}];
 const PRE=[
 {f:'食べる',c:'哺乳',id:'C-1',t:'先天性歯がある',g:'A'},
-{f:'食べる',c:'哺乳',id:'C-2',t:'口唇、歯槽の形態に異常がある',g:'A'},
+{f:'食べる',c:'哺乳',id:'C-2',t:'口唇、歯槽の形態に異常がある（裂奇形など）',g:'A'},
 {f:'食べる',c:'哺乳',id:'C-3',t:'舌小帯に異常がある',g:'A'},
-{f:'食べる',c:'哺乳',id:'C-4',t:'乳首をしっかり口にふくめない',g:'A'},
-{f:'食べる',c:'哺乳',id:'C-5',t:'授乳時間が長すぎる・短すぎる',g:'A'},
-{f:'食べる',c:'哺乳',id:'C-6',t:'哺乳量・授乳回数にムラがある等',g:'A'},
-{f:'食べる',c:'離乳',id:'C-7',t:'首の据わりが確認できない',g:'A'},
-{f:'食べる',c:'離乳',id:'C-8',t:'スプーンを舌で押し出す',g:'A'},
+{f:'食べる',c:'哺乳',id:'C-4',t:'乳首をしっかり口にふくむことができない',g:'A'},
+{f:'食べる',c:'哺乳',id:'C-5',t:'授乳時間が長すぎる、短すぎる',g:'A'},
+{f:'食べる',c:'哺乳',id:'C-6',t:'哺乳量・授乳回数が多すぎたり少なすぎたりムラがあるなど',g:'A'},
+{f:'食べる',c:'離乳',id:'C-7',t:'開始しているが首の据わりが確認できない',g:'A'},
+{f:'食べる',c:'離乳',id:'C-8',t:'スプーンを舌で押し出す状態がみられる',g:'A'},
 {f:'食べる',c:'離乳',id:'C-9',t:'離乳が進まない',g:'A'},
-{f:'話す',c:'構音機能',id:'C-10',t:'口唇の閉鎖不全がある',g:'B'},
+{f:'話す',c:'構音機能',id:'C-10',t:'口唇の閉鎖不全がある（安静時に口唇閉鎖を認めない）',g:'B'},
 {f:'その他',c:'栄養（体格）',id:'C-11',t:'やせ、または肥満である',g:'B'},
 {f:'その他',c:'その他',id:'C-12',t:'口腔周囲に過敏がある',g:'B'},
 {f:'その他',c:'その他',id:'C-13',t:'上記以外の問題点',g:'B',fr:1}];
@@ -254,6 +255,7 @@ function gCL(){return Q('input[name=wn]:checked')?.value==='前'?PRE:POST}
 function isP(){return Q('input[name=wn]:checked')?.value!=='前'}
 
 function bCL(){
+  CS={};
   const items=gCL();
   $('cT').textContent='チェックリスト評価（離乳完了'+(isP()?'後':'前')+' ）';
   let h='<div class="ct-wrap"><table class="ct"><thead><tr><th>A機能</th><th>B分類</th><th>C項目</th><th>D該当項目</th><th style="width:110px">評価</th><th style="width:140px">管理の計画</th></tr></thead><tbody>';
