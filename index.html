@@ -129,8 +129,8 @@
 <div class="fi"><label>ふりがな</label><input type="text" id="fF"></div>
 <div class="fi"><label>生年月日</label><input type="date" id="fBD" value="2020-01-01" onchange="calcAge()"></div>
 <div class="fi"><label>年齢（自動計算）</label><div style="display:flex;gap:6px;align-items:center"><input type="number" id="fAY" style="width:70px;background:var(--g100);color:var(--g700)" readonly><span>歳</span><input type="number" id="fAM" style="width:70px;background:var(--g100);color:var(--g700)" readonly><span>ヶ月</span></div></div>
-<div class="fi"><label>診察日</label><input type="date" id="fDT" onchange="calcAge()"></div>
 <div class="fi"><label>性別</label><div class="rg"><label class="ro" onclick="sR(this)"><input type="radio" name="sx" value="男">男</label><label class="ro" onclick="sR(this)"><input type="radio" name="sx" value="女">女</label></div></div>
+<div class="fi"><label>診察日</label><input type="date" id="fDT" onchange="calcAge()"></div>
 </div>
 <div class="sst">作成区分</div>
 <div class="rg"><label class="ro sel" onclick="sR(this)"><input type="radio" name="ct" value="初回作成" checked>初回作成</label><label class="ro" onclick="sR(this)"><input type="radio" name="ct" value="再評価">再評価</label></div>
@@ -259,25 +259,62 @@ function bCL(){
 }
 function sC(id,val,btn){CS[id]=val;btn.closest('tr').querySelectorAll('.et button').forEach(b=>b.className='');btn.className=val==='ok'?'aok':'apr';const p=$('pl_'+id);if(p)p.disabled=val!=='problem';cD();gP()}
 
+// Lip closure force -1SD thresholds by age and sex
+const LIP_M={3:2.1,4:3.0,5:4.1,6:5.5,7:6.6,8:6.5,9:6.0,10:5.7,11:5.8,12:6.9,13:6.9,14:6.9,15:10.5,16:10.5,17:10.5,18:11.6};
+const LIP_F={3:1.9,4:2.8,5:3.8,6:4.6,7:5.1,8:5.0,9:4.7,10:4.6,11:5.3,12:6.1,13:6.1,14:6.1,15:9.6,16:9.6,17:9.6,18:10.6};
+// Tongue pressure cut-off by age
+const TP_CUT={3:4.0,4:9.0,5:12.0,6:17.0,7:24.0,8:24.0,9:26.0,10:26.0,11:31.0,12:31.0};
+
+function getLipThreshold(){
+  const age=parseInt(V('fAY'));const sx=Q('input[name=sx]:checked')?.value;
+  if(isNaN(age)||age<3)return null;
+  const tbl=sx==='女'?LIP_F:LIP_M;
+  const a=Math.min(age,18);return tbl[a]||null;
+}
+function getTpThreshold(){
+  const age=parseInt(V('fAY'));if(isNaN(age)||age<3)return null;
+  const a=Math.min(age,12);return TP_CUT[a]||null;
+}
+
 function cD(){
   const items=gCL();let tot=0,hasA=false;
   items.forEach(it=>{if(CS[it.id]==='problem'){tot++;if(it.g==='A')hasA=true}});
 
-  // Lip closure force
-  const lip=parseFloat($('fLP')?.value);
-  $('lR').innerHTML=!isNaN(lip)?'<span style="background:var(--dl);color:#dc2626;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">測定値: '+lip+' N</span>':'測定値を入力してください';
+  // Lip closure force evaluation
+  const lip=parseFloat(V('fLP'));
+  const lipTh=getLipThreshold();
+  if(!isNaN(lip)&&lipTh!==null){
+    if(lip<lipTh){
+      $('lR').innerHTML='<span style="background:var(--dl);color:#dc2626;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">低下（基準 -1SD: '+lipTh+' N）</span>';
+    }else{
+      $('lR').innerHTML='<span style="background:var(--sl);color:#059669;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">正常範囲（基準 -1SD: '+lipTh+' N）</span>';
+    }
+  }else if(!isNaN(lip)){
+    $('lR').innerHTML='<span style="font-size:12px;color:var(--g500)">年齢・性別を入力すると自動判定します</span>';
+  }else{
+    $('lR').innerHTML='測定値を入力してください';
+  }
 
-  // Tongue pressure
-  const tp2=parseFloat($('fTP2')?.value);
-  $('tpR').innerHTML=!isNaN(tp2)?'<span style="background:'+(tp2<20?'var(--dl);color:#dc2626':'var(--sl);color:#059669')+';padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600">測定値: '+tp2+' kPa</span>':'測定値を入力してください';
+  // Tongue pressure evaluation
+  const tp2=parseFloat(V('fTP2'));
+  const tpTh=getTpThreshold();
+  if(!isNaN(tp2)&&tpTh!==null){
+    if(tp2<tpTh){
+      $('tpR').innerHTML='<span style="background:var(--dl);color:#dc2626;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">低下（基準 cut-off: '+tpTh+' kPa）</span>';
+    }else{
+      $('tpR').innerHTML='<span style="background:var(--sl);color:#059669;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">正常範囲（基準 cut-off: '+tpTh+' kPa）</span>';
+    }
+  }else if(!isNaN(tp2)){
+    $('tpR').innerHTML='<span style="font-size:12px;color:var(--g500)">年齢を入力すると自動判定します</span>';
+  }else{
+    $('tpR').innerHTML='測定値を入力してください';
+  }
 
   // Age check
-  const ageY=parseInt($('fAY')?.value);
+  const ageY=parseInt(V('fAY'));
   const isUnder18=isNaN(ageY)||ageY<18;
 
-  // Diagnosis: 2+ D items with at least 1 from group A
   const dx=tot>=2&&hasA;
-  // Billing: diagnosis + 3+ items + under 18 + other requirements
   const br=$('fBR').checked;
   const billable=dx&&tot>=3&&isUnder18&&br;
 
@@ -286,7 +323,6 @@ function cD(){
   $('dR').className=dx?'dr pos':'dr neg';
   $('dR').textContent=dx?'口腔機能発達不全症　該当':'非該当';
 
-  // Sub-status for billing
   let r2='';
   if(dx&&!billable){
     let reasons=[];
@@ -299,7 +335,6 @@ function cD(){
   }
   $('dR2').innerHTML=r2;
 
-  // Header cards
   $('hcD').className=dx?'hc dx':'hc off';
   $('hcDV').innerHTML=dx?'<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;margin-right:5px;animation:blink 1s ease-in-out infinite"></span>該当':'非該当';
   $('hcB').className=billable?'hc ok':'hc off';
@@ -433,20 +468,21 @@ function outputPDF(){
   const html=buildPrintHTML();
   const blob=new Blob([html],{type:'text/html;charset=utf-8'});
   const url=URL.createObjectURL(blob);
-  const w=window.open(url,'_blank');
-  if(!w){
-    // Fallback: try iframe approach
-    const a=document.createElement('a');
-    a.href=url;
-    a.target='_blank';
-    a.click();
-    setTimeout(()=>URL.revokeObjectURL(url),5000);
-    return;
-  }
-  w.onload=function(){setTimeout(()=>{w.print()},800)};
-  setTimeout(()=>{try{w.print()}catch(e){}},2000);
+  const ka=V('fK'),nm=V('fN');
+  const fn=(ka?ka+'_':'')+(nm||'口腔機能発達不全症')+'.html';
+  const a=document.createElement('a');
+  a.href=url;a.download=fn;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),3000);
 }
-function outputPrint(){outputPDF()}
+function outputPrint(){
+  const html=buildPrintHTML();
+  const w=window.open('','_blank');
+  if(!w){alert('ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。');return}
+  w.document.write(html);w.document.close();
+  w.onload=function(){setTimeout(()=>w.print(),600)};
+  setTimeout(()=>{try{w.print()}catch(e){}},1500);
+}
 
 bCL();bTR();calcAge();
 </script>
