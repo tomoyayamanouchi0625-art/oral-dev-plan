@@ -4,12 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oral Dev Plan - 口腔機能発達不全症</title>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
 :root{--p:#2563eb;--pd:#1d4ed8;--pl:#dbeafe;--p50:#eff6ff;--s:#10b981;--sl:#d1fae5;--d:#ef4444;--dl:#fee2e2;--g50:#f8fafc;--g100:#f1f5f9;--g200:#e2e8f0;--g300:#cbd5e1;--g400:#94a3b8;--g500:#64748b;--g600:#475569;--g700:#334155;--g800:#1e293b;--r:12px;--rs:8px}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Noto Sans JP',sans-serif;background:var(--g50);color:var(--g800);line-height:1.7;-webkit-font-smoothing:antialiased}
-
 .app-header{background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 50%,#3b82f6 100%);color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(37,99,235,.3)}
 .ht{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .hb{display:flex;align-items:center;gap:14px}
@@ -26,40 +24,33 @@
 @keyframes pulseRed{0%,100%{box-shadow:0 0 16px rgba(239,68,68,.35),0 0 4px rgba(239,68,68,.2)}50%{box-shadow:0 0 24px rgba(239,68,68,.5),0 0 8px rgba(239,68,68,.3)}}
 @keyframes pulseGreen{0%,100%{box-shadow:0 0 16px rgba(16,185,129,.35),0 0 4px rgba(16,185,129,.2)}50%{box-shadow:0 0 24px rgba(16,185,129,.5),0 0 8px rgba(16,185,129,.3)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.sb{background:rgba(0,0,0,.12);border-top:1px solid rgba(255,255,255,.08)}
-.sbi{max-width:1200px;margin:0 auto;padding:7px 24px;display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.6)}
-.sbi span{margin-right:2px}
+.xb{background:rgba(0,0,0,.12);border-top:1px solid rgba(255,255,255,.08)}
+.xbi{max-width:1200px;margin:0 auto;padding:7px 24px;display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.6)}
+.xbi span{margin-right:2px}
 .scb{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;padding:4px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-family:inherit;transition:all .2s}
 .scb:hover{background:rgba(255,255,255,.22)}
-
 .mn{max-width:1200px;margin:0 auto;padding:24px}
 .intro{background:linear-gradient(135deg,#1e3a5f,#1e40af);color:#fff;border-radius:var(--r);padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden}
 .intro::after{content:'';position:absolute;top:-60%;right:-15%;width:320px;height:320px;background:radial-gradient(circle,rgba(255,255,255,.06),transparent 70%);border-radius:50%}
 .intro h2{font-family:'Outfit',sans-serif;font-size:20px;font-weight:700;margin-bottom:6px}.intro p{font-size:13px;opacity:.85}
-
 .sc{background:#fff;border-radius:var(--r);box-shadow:0 4px 6px -1px rgba(0,0,0,.07);margin-bottom:24px;border:1px solid var(--g200);overflow:hidden}
 .sh{display:flex;align-items:center;gap:12px;padding:18px 24px;border-bottom:1px solid var(--g200);background:var(--g50)}
-.sn{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:var(--p);background:var(--pl);width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px}
 .st{font-size:17px;font-weight:700}
 .sb2{padding:24px}
-
 .inf{background:var(--p50);border:1px solid var(--pl);border-radius:var(--rs);padding:14px 16px;font-size:13px;color:var(--g700);margin-bottom:16px}
 .inf strong{color:var(--pd)}
 .sst{font-size:15px;font-weight:700;color:var(--g700);margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--pl)}
 .sst:first-child{margin-top:0}
-
 .fg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-bottom:14px}
 .fi{display:flex;flex-direction:column;gap:3px}
 .fi label{font-size:12px;font-weight:600;color:var(--g600)}
 .fi input,.fi select,.fi textarea{padding:7px 10px;border:1px solid var(--g300);border-radius:var(--rs);font-size:14px;font-family:inherit;transition:border .2s}
 .fi input:focus,.fi select:focus,.fi textarea:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-
 .rg{display:flex;gap:8px;flex-wrap:wrap}
 .ro{display:flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid var(--g300);border-radius:var(--rs);cursor:pointer;font-size:13px;transition:all .2s;background:#fff;user-select:none}
 .ro:hover{border-color:var(--p);background:var(--p50)}
 .ro.sel{border-color:var(--p);background:var(--pl);color:var(--pd);font-weight:600}
 .ro input{display:none}
-
 .ct-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px}
 .ct{width:100%;border-collapse:collapse;font-size:13px;min-width:700px}
 .ct th{background:var(--g100);padding:8px 10px;text-align:left;font-weight:600;font-size:11px;color:var(--g600);border-bottom:2px solid var(--g200);white-space:nowrap}
@@ -70,15 +61,13 @@
 .et button{padding:6px 14px;border:1px solid var(--g300);border-radius:6px;background:#fff;font-size:12px;font-family:inherit;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent}
 .et button.aok{background:var(--sl);border-color:var(--s);color:#059669;font-weight:600}
 .et button.apr{background:var(--dl);border-color:var(--d);color:#dc2626;font-weight:600}
-
 .db{background:linear-gradient(135deg,var(--g50),#fff);border:2px solid var(--g200);border-radius:var(--r);padding:20px;text-align:center;margin-top:16px}
 .db.hit{border-color:var(--d);background:linear-gradient(135deg,#fef2f2,#fff)}
 .dc{font-family:'Outfit',sans-serif;font-size:48px;font-weight:800;color:var(--g400);line-height:1}
 .db.hit .dc{color:var(--d)}
-.dl{font-size:14px;color:var(--g600);margin-top:4px}
+.dl2{font-size:14px;color:var(--g600);margin-top:4px}
 .dr{font-size:16px;font-weight:700;margin-top:8px;padding:8px 20px;border-radius:20px;display:inline-block}
 .dr.pos{background:var(--dl);color:#dc2626}.dr.neg{background:var(--g100);color:var(--g500)}
-
 .tc{margin-bottom:16px;border:1px solid var(--g200);border-radius:var(--rs);overflow:hidden}
 .tch{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--g50);border-bottom:1px solid var(--g200)}
 .tch h4{font-size:14px;font-weight:600;color:var(--g700)}
@@ -89,24 +78,17 @@
 .ti.sel{border-color:var(--p);background:var(--pl)}
 .ti input[type=checkbox]{margin-top:2px;accent-color:var(--p)}
 .tn{font-size:13px;font-weight:600;color:var(--g700)}.td{font-size:11px;color:var(--g500);margin-top:2px}
-
-.oc{display:flex;align-items:center;gap:12px;padding:12px 16px;border:1px solid var(--g200);border-radius:var(--rs);margin-bottom:8px}
-.oi{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
-
 .btn{padding:10px 20px;border:none;border-radius:var(--rs);font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
 .bp{background:var(--p);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.3)}.bp:hover{background:var(--pd);transform:translateY(-1px)}
 .bo{background:#fff;color:var(--p);border:1px solid var(--p)}.bo:hover{background:var(--p50)}
-.bg{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 .ck{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px}
 .ck input[type=checkbox]{accent-color:var(--p);width:16px;height:16px}
-
 @media(max-width:1024px){.fg{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}.ct th,.ct td{padding:10px 8px;font-size:12px}.et button{padding:6px 14px;font-size:12px}.ti{padding:10px 14px}.tn{font-size:14px}.ro{padding:10px 16px;font-size:14px}.btn{padding:12px 24px;font-size:15px}.ck{font-size:14px}.ck input[type=checkbox]{width:20px;height:20px}.fi input,.fi select{padding:10px 12px;font-size:15px}}
 @media(max-width:768px){.ht{flex-direction:column;gap:10px}.hcs{justify-content:center;width:100%}.hc{flex:1;min-width:0}.hc-l,.hc-v{font-size:11px}.fg{grid-template-columns:1fr}.mn{padding:12px}.sb2{padding:16px}}
-@media print{body{background:#fff}.app-header,.sb,.sc:not(.pt),.no-print{display:none!important}.pt{box-shadow:none;border:none}}
+@media print{body{background:#fff}.app-header,.xb,.sc:not(.pt),.no-print{display:none!important}.pt{box-shadow:none;border:none}}
 </style>
 </head>
 <body>
-
 <header class="app-header">
 <div class="ht">
 <div class="hb"><div class="logo">Oral Dev Plan</div></div>
@@ -115,9 +97,8 @@
 <div class="hc off" id="hcB"><div class="hc-l">小児口腔機能管理料</div><div class="hc-v" id="hcBV">算定不可</div></div>
 </div>
 </div>
-<div class="sb"><div class="sbi"><span>出力ショートカット</span><button class="scb" onclick="outputPDF()">PDF出力</button><button class="scb" onclick="outputPrint()">直接印刷</button></div></div>
+<div class="xb"><div class="xbi"><span>出力</span><button class="scb" onclick="doPDF()">PDF保存</button><button class="scb" onclick="doPrint()">印刷</button></div></div>
 </header>
-
 <main class="mn">
 <div class="intro"><h2>Oral Dev Plan</h2><p>患者基本情報、チェックリスト評価、管理計画、保護者向けトレーニング内容を整理し、<strong>口腔機能発達不全症</strong>の判定と<strong>小児口腔機能管理料</strong>の算定可否を常時確認しながら帳票を作成できます。</p></div>
 
@@ -129,7 +110,7 @@
 <div class="fi"><label>ふりがな</label><input type="text" id="fF"></div>
 <div class="fi"><label>生年月日</label><input type="date" id="fBD" value="2020-01-01" onchange="calcAge()"></div>
 <div class="fi"><label>年齢（自動計算）</label><div style="display:flex;gap:6px;align-items:center"><input type="number" id="fAY" style="width:70px;background:var(--g100);color:var(--g700)" readonly><span>歳</span><input type="number" id="fAM" style="width:70px;background:var(--g100);color:var(--g700)" readonly><span>ヶ月</span></div></div>
-<div class="fi"><label>性別</label><div class="rg"><label class="ro" onclick="sR(this)"><input type="radio" name="sx" value="男">男</label><label class="ro" onclick="sR(this)"><input type="radio" name="sx" value="女">女</label></div></div>
+<div class="fi"><label>性別</label><div class="rg"><label class="ro" onclick="sR(this);cD()"><input type="radio" name="sx" value="男">男</label><label class="ro" onclick="sR(this);cD()"><input type="radio" name="sx" value="女">女</label></div></div>
 <div class="fi"><label>診察日</label><input type="date" id="fDT" onchange="calcAge()"></div>
 </div>
 <div class="sst">作成区分</div>
@@ -148,22 +129,17 @@
 <div class="fg"><div class="fi"><label>口唇閉鎖力（N）</label><input type="number" id="fLP" step="0.1" onchange="cD()"></div><div class="fi"><label>判定</label><div id="lR" style="font-size:13px;color:var(--g500)">測定値を入力してください</div></div></div>
 <div class="sst">舌圧検査</div>
 <div class="fg"><div class="fi"><label>舌圧（kPa）</label><input type="number" id="fTP2" step="0.1" onchange="cD()"></div><div class="fi"><label>判定</label><div id="tpR" style="font-size:13px;color:var(--g500)">測定値を入力してください</div></div></div>
-<div class="db" id="dB">
-<div class="dc" id="dC">0</div>
-<div class="dl">D該当項目数</div>
-<div class="dr neg" id="dR">非該当</div>
-<div id="dR2" style="margin-top:8px;font-size:13px;color:var(--g500)"></div>
-</div>
+<div class="db" id="dB"><div class="dc" id="dC">0</div><div class="dl2">D該当項目数</div><div class="dr neg" id="dR">非該当</div><div id="dR2" style="margin-top:8px;font-size:13px;color:var(--g500)"></div></div>
 </div></div>
 
 <div class="sc"><div class="sh"><div class="st">管理計画書入力</div></div><div class="sb2">
 <div class="inf">チェックリストの評価結果に基づき管理計画を入力してください。</div>
 <div id="pB"></div>
-<div class="sst">管理方針・目標（ゴール）・治療予定等</div>
+<div class="sst">管理方針・目標・治療予定等</div>
 <textarea id="fG" style="width:100%;min-height:120px;padding:12px;border:1px solid var(--g300);border-radius:var(--rs);font-family:inherit;font-size:13px;line-height:1.7;resize:vertical"></textarea>
-<div class="sst">再評価の時期・治療期間</div>
+<div class="sst">再評価の時期・治療目安期間</div>
 <div class="fg">
-<div class="fi"><label>治療期間（ヶ月）</label><input type="number" id="fTP" value="12" min="1"></div>
+<div class="fi"><label>治療目安期間（ヶ月）</label><input type="number" id="fTP" value="12" min="1"></div>
 <div class="fi"><label>再評価（約 ヶ月後）</label><input type="text" id="fRP" value="3〜6"></div>
 <div class="fi"><label>来院間隔（ヶ月ごと）</label><input type="text" id="fVI" value="1〜3"></div>
 <div class="fi"><label>写真撮影（ヶ月ごと）</label><input type="number" id="fPI" value="3" min="1"></div>
@@ -177,21 +153,21 @@
 <div id="tB"></div>
 </div></div>
 
-<!-- Footer Output Section -->
-<div class="sc" id="sec-footer-output">
-<div class="sh"><div class="st">帳票出力</div></div>
-<div class="sb2">
+<div class="sc"><div class="sh"><div class="st">帳票出力</div></div><div class="sb2">
 <div style="display:flex;flex-direction:column;gap:12px">
-<button class="btn bp" onclick="outputPDF()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">📄 3資料をまとめてPDF出力</button>
-<button class="btn bo" onclick="outputPrint()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">🖨 3資料をまとめて直接印刷</button>
+<button class="btn bp" onclick="doPDF()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">📄 PDF保存（ダウンロード）</button>
+<button class="btn bo" onclick="doPrint()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">🖨 直接印刷</button>
 </div>
 </div></div>
-
 </main>
 
 <script>
-const D=document,$=s=>D.getElementById(s),Q=s=>D.querySelector(s),V=s=>$(s)?.value||'';
-$('fDT').value=new Date().toISOString().split('T')[0];
+const D=document,EL=s=>D.getElementById(s),QS=s=>D.querySelector(s);
+function GV(id){const e=EL(id);return e?e.value:'';}
+EL('fDT').value=new Date().toISOString().split('T')[0];
+
+// ===== Age state (always up-to-date) =====
+let AGE_Y=5,AGE_M=0;
 
 const POST=[
 {f:'食べる',c:'咀嚼機能',id:'C-1',t:'歯の萌出に遅れがある',g:'A'},
@@ -236,13 +212,44 @@ const TR={
 
 let CS={},ST={};
 function sR(el){el.closest('.rg').querySelectorAll('.ro').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');el.querySelector('input').checked=true}
-function gCL(){return Q('input[name=wn]:checked')?.value==='前'?PRE:POST}
-function isP(){return Q('input[name=wn]:checked')?.value!=='前'}
+function gCL(){return QS('input[name=wn]:checked')?.value==='前'?PRE:POST}
+function isP(){return QS('input[name=wn]:checked')?.value!=='前'}
 
+// ===== Age =====
+function calcAge(){
+  const bd=GV('fBD'),ed=GV('fDT');
+  if(!bd||!ed)return;
+  const b=new Date(bd),e=new Date(ed);
+  if(isNaN(b.getTime())||isNaN(e.getTime())||e<b)return;
+  let y=e.getFullYear()-b.getFullYear();
+  let m=e.getMonth()-b.getMonth();
+  if(e.getDate()<b.getDate())m--;
+  if(m<0){y--;m+=12}
+  AGE_Y=y; AGE_M=m;
+  EL('fAY').value=y; EL('fAM').value=m;
+  cD();
+}
+
+// ===== Lip / Tongue thresholds =====
+const LIP_M={3:2.1,4:3.0,5:4.1,6:5.5,7:6.6,8:6.5,9:6.0,10:5.7,11:5.8,12:6.9,13:6.9,14:6.9,15:10.5,16:10.5,17:10.5};
+const LIP_F={3:1.9,4:2.8,5:3.8,6:4.6,7:5.1,8:5.0,9:4.7,10:4.6,11:5.3,12:6.1,13:6.1,14:6.1,15:9.6,16:9.6,17:9.6};
+const TP_CUT={3:4.0,4:9.0,5:12.0,6:17.0,7:24.0,8:24.0,9:26.0,10:26.0,11:31.0,12:31.0};
+
+function getLipTh(){
+  if(AGE_Y<3||AGE_Y>17)return null;
+  const sx=QS('input[name=sx]:checked')?.value;
+  return (sx==='女'?LIP_F:LIP_M)[AGE_Y]||null;
+}
+function getTpTh(){
+  if(AGE_Y<3||AGE_Y>12)return null;
+  return TP_CUT[AGE_Y]||null;
+}
+
+// ===== Checklist =====
 function bCL(){
   CS={};
   const items=gCL();
-  $('cT').textContent='チェックリスト評価（離乳完了'+(isP()?'後':'前')+' ）';
+  EL('cT').textContent='チェックリスト評価（離乳完了'+(isP()?'後':'前')+'）';
   let h='<div class="ct-wrap"><table class="ct"><thead><tr><th>A機能</th><th>B分類</th><th>C項目</th><th>D該当項目</th><th style="width:110px">評価</th><th style="width:140px">管理の計画</th></tr></thead><tbody>';
   let pf='',pc='';
   items.forEach(it=>{
@@ -255,90 +262,71 @@ function bCL(){
     h+=`</td><td><div class="et"><button class="${v==='ok'?'aok':''}" onclick="sC('${it.id}','ok',this)">問題なし</button><button class="${v==='problem'?'apr':''}" onclick="sC('${it.id}','problem',this)">あり</button></div></td>`;
     h+=`<td><input type="text" id="pl_${it.id}" placeholder="指導・訓練" style="width:100%;padding:6px 10px;border:1px solid var(--g300);border-radius:6px;font-size:13px" ${v!=='problem'?'disabled':''}></td></tr>`;
   });
-  h+='</tbody></table></div>';$('cB').innerHTML=h;cD();
+  h+='</tbody></table></div>';EL('cB').innerHTML=h;cD();
 }
-function sC(id,val,btn){CS[id]=val;btn.closest('tr').querySelectorAll('.et button').forEach(b=>b.className='');btn.className=val==='ok'?'aok':'apr';const p=$('pl_'+id);if(p)p.disabled=val!=='problem';cD();gP()}
+function sC(id,val,btn){CS[id]=val;btn.closest('tr').querySelectorAll('.et button').forEach(b=>b.className='');btn.className=val==='ok'?'aok':'apr';const p=EL('pl_'+id);if(p)p.disabled=val!=='problem';cD();gP()}
 
-// Lip closure force -1SD thresholds by age and sex
-const LIP_M={3:2.1,4:3.0,5:4.1,6:5.5,7:6.6,8:6.5,9:6.0,10:5.7,11:5.8,12:6.9,13:6.9,14:6.9,15:10.5,16:10.5,17:10.5,18:11.6};
-const LIP_F={3:1.9,4:2.8,5:3.8,6:4.6,7:5.1,8:5.0,9:4.7,10:4.6,11:5.3,12:6.1,13:6.1,14:6.1,15:9.6,16:9.6,17:9.6,18:10.6};
-// Tongue pressure cut-off by age
-const TP_CUT={3:4.0,4:9.0,5:12.0,6:17.0,7:24.0,8:24.0,9:26.0,10:26.0,11:31.0,12:31.0};
-
-function getLipThreshold(){
-  const age=parseInt(V('fAY'));const sx=Q('input[name=sx]:checked')?.value;
-  if(isNaN(age)||age<3)return null;
-  const tbl=sx==='女'?LIP_F:LIP_M;
-  const a=Math.min(age,18);return tbl[a]||null;
-}
-function getTpThreshold(){
-  const age=parseInt(V('fAY'));if(isNaN(age)||age<3)return null;
-  const a=Math.min(age,12);return TP_CUT[a]||null;
-}
-
+// ===== Diagnosis =====
 function cD(){
   const items=gCL();let tot=0,hasA=false;
   items.forEach(it=>{if(CS[it.id]==='problem'){tot++;if(it.g==='A')hasA=true}});
 
-  // Lip closure force evaluation
-  const lip=parseFloat(V('fLP'));
-  const lipTh=getLipThreshold();
+  // Lip
+  const lipVal=EL('fLP')?.value;
+  const lip=lipVal?parseFloat(lipVal):NaN;
+  const lipTh=getLipTh();
   if(!isNaN(lip)&&lipTh!==null){
-    if(lip<lipTh){
-      $('lR').innerHTML='<span style="background:var(--dl);color:#dc2626;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">低下（基準 -1SD: '+lipTh+' N）</span>';
-    }else{
-      $('lR').innerHTML='<span style="background:var(--sl);color:#059669;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">正常範囲（基準 -1SD: '+lipTh+' N）</span>';
-    }
+    const low=lip<=lipTh;
+    EL('lR').innerHTML=low
+      ?'<span style="background:var(--dl);color:#dc2626;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">低下（-1SD: '+lipTh+'N / 測定値: '+lip+'N）</span>'
+      :'<span style="background:var(--sl);color:#059669;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">正常範囲（-1SD: '+lipTh+'N / 測定値: '+lip+'N）</span>';
   }else if(!isNaN(lip)){
-    $('lR').innerHTML='<span style="font-size:12px;color:var(--g500)">年齢・性別を入力すると自動判定します</span>';
+    EL('lR').innerHTML='<span style="color:var(--g500);font-size:12px">年齢・性別を設定すると自動判定します（測定値: '+lip+'N）</span>';
   }else{
-    $('lR').innerHTML='測定値を入力してください';
+    EL('lR').innerHTML='測定値を入力してください';
   }
 
-  // Tongue pressure evaluation
-  const tp2=parseFloat(V('fTP2'));
-  const tpTh=getTpThreshold();
-  if(!isNaN(tp2)&&tpTh!==null){
-    if(tp2<tpTh){
-      $('tpR').innerHTML='<span style="background:var(--dl);color:#dc2626;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">低下（基準 cut-off: '+tpTh+' kPa）</span>';
-    }else{
-      $('tpR').innerHTML='<span style="background:var(--sl);color:#059669;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">正常範囲（基準 cut-off: '+tpTh+' kPa）</span>';
-    }
-  }else if(!isNaN(tp2)){
-    $('tpR').innerHTML='<span style="font-size:12px;color:var(--g500)">年齢を入力すると自動判定します</span>';
+  // Tongue
+  const tpVal=EL('fTP2')?.value;
+  const tp=tpVal?parseFloat(tpVal):NaN;
+  const tpTh=getTpTh();
+  if(!isNaN(tp)&&tpTh!==null){
+    const low=tp<tpTh;
+    EL('tpR').innerHTML=low
+      ?'<span style="background:var(--dl);color:#dc2626;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">低下（cut-off: '+tpTh+'kPa / 測定値: '+tp+'kPa）</span>'
+      :'<span style="background:var(--sl);color:#059669;padding:4px 12px;border-radius:10px;font-size:12px;font-weight:700">正常範囲（cut-off: '+tpTh+'kPa / 測定値: '+tp+'kPa）</span>';
+  }else if(!isNaN(tp)){
+    EL('tpR').innerHTML='<span style="color:var(--g500);font-size:12px">年齢を設定すると自動判定します（測定値: '+tp+'kPa）</span>';
   }else{
-    $('tpR').innerHTML='測定値を入力してください';
+    EL('tpR').innerHTML='測定値を入力してください';
   }
 
-  // Age check
-  const ageY=parseInt(V('fAY'));
-  const isUnder18=isNaN(ageY)||ageY<18;
-
+  const isUnder18=AGE_Y<18;
   const dx=tot>=2&&hasA;
-  const br=$('fBR').checked;
+  const br=EL('fBR').checked;
   const billable=dx&&tot>=3&&isUnder18&&br;
 
-  $('dC').textContent=tot;
-  $('dB').className=dx?'db hit':'db';
-  $('dR').className=dx?'dr pos':'dr neg';
-  $('dR').textContent=dx?'口腔機能発達不全症　該当':'非該当';
+  EL('dC').textContent=tot;
+  EL('dB').className=dx?'db hit':'db';
+  EL('dR').className=dx?'dr pos':'dr neg';
+  EL('dR').textContent=dx?'口腔機能発達不全症　該当':'非該当';
 
   let r2='';
   if(dx&&!billable){
-    let reasons=[];
-    if(tot<3)reasons.push('D該当3項目以上が必要（現在'+tot+'項目）');
-    if(!isUnder18)reasons.push('18歳以上のため算定不可');
-    if(!br)reasons.push('算定要件チェックなし');
-    r2='<span style="color:#d97706;font-weight:600">⚠ 疾患該当だが算定不可: '+reasons.join('、')+'</span>';
+    let rr=[];
+    if(tot<3)rr.push('D該当3項目以上が必要（現在'+tot+'項目）');
+    if(!isUnder18)rr.push('18歳以上のため算定不可');
+    if(!br)rr.push('算定要件チェックなし');
+    r2='<span style="color:#d97706;font-weight:600">⚠ 疾患該当だが算定不可: '+rr.join('、')+'</span>';
   }else if(billable){
     r2='<span style="color:#059669;font-weight:600">✓ 小児口腔機能管理料 算定可（D該当'+tot+'項目）</span>';
   }
-  $('dR2').innerHTML=r2;
+  EL('dR2').innerHTML=r2;
 
-  $('hcD').className=dx?'hc dx':'hc off';
-  $('hcDV').innerHTML=dx?'<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;margin-right:5px;animation:blink 1s ease-in-out infinite"></span>該当':'非該当';
-  $('hcB').className=billable?'hc ok':'hc off';
-  $('hcBV').innerHTML=billable?'<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;margin-right:5px;animation:blink 1s ease-in-out infinite"></span>算定可':'算定不可';
+  EL('hcD').className=dx?'hc dx':'hc off';
+  EL('hcDV').innerHTML=dx?'<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;margin-right:5px;animation:blink 1s ease-in-out infinite"></span>該当':'非該当';
+  EL('hcB').className=billable?'hc ok':'hc off';
+  EL('hcBV').innerHTML=billable?'<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;margin-right:5px;animation:blink 1s ease-in-out infinite"></span>算定可':'算定不可';
 }
 
 function gP(){
@@ -347,8 +335,8 @@ function gP(){
   else{t='【管理目標】\n口腔機能の正常な獲得を目標とし問題点の改善を図ります。\n\n【問題点】\n';
     probs.forEach(p=>t+=`・${p.id} ${p.t}\n`);
     t+='\n【管理方針】\n適切な指導・訓練を実施し保護者への情報提供と動機づけを行います。\n定期的な評価を行い計画を見直します。\n\n【治療予定】\n';
-    probs.forEach(p=>{const pi=$('pl_'+p.id);t+=`・${p.t} → ${pi?.value||'指導・訓練'}\n`})}
-  $('fG').value=t;
+    probs.forEach(p=>{const pi=EL('pl_'+p.id);t+=`・${p.t} → ${pi?.value||'指導・訓練'}\n`})}
+  EL('fG').value=t;
 }
 
 function bTR(){
@@ -356,132 +344,103 @@ function bTR(){
     h+=`<div class="tc"><div class="tch"><h4>${cat.l}</h4><span class="tcn">${sel.length}/5件選択</span></div><div class="tci">`;
     cat.i.forEach(it=>{const s=sel.includes(it.x);
       h+=`<div class="ti${s?' sel':''}" onclick="tT('${k}','${it.x}')"><input type="checkbox" ${s?'checked':''}><div><div class="tn">${it.n}</div><div class="td">${it.d}</div></div></div>`});
-    h+='</div></div>'});$('tB').innerHTML=h}
+    h+='</div></div>'});EL('tB').innerHTML=h}
 function tT(k,x){if(!ST[k])ST[k]=[];const a=ST[k],i=a.indexOf(x);if(i>=0)a.splice(i,1);else{if(a.length>=5){alert('最大5つまでです');return}a.push(x)}bTR()}
 
-// ===== Age Calculation =====
-function calcAge(){
-  const bd=V('fBD'),ed=V('fDT');
-  if(!bd||!ed)return;
-  const b=new Date(bd),e=new Date(ed);
-  if(isNaN(b)||isNaN(e)||e<b)return;
-  let y=e.getFullYear()-b.getFullYear();
-  let m=e.getMonth()-b.getMonth();
-  if(e.getDate()<b.getDate())m--;
-  if(m<0){y--;m+=12}
-  $('fAY').value=y;$('fAM').value=m;
-  cD();
-}
-
-// ===== PDF & Print =====
-function buildPrintHTML(){
-  const nm=V('fN'),ka=V('fK'),ay=V('fAY'),am=V('fAM'),sx=Q('input[name=sx]:checked')?.value||'',ed=V('fDT'),bd=V('fBD'),ct=Q('input[name=ct]:checked')?.value||'',wn=isP()?'離乳完了後':'離乳完了前',items=gCL();
+// ===== Print HTML builder =====
+function mkHTML(){
+  const nm=GV('fN'),ka=GV('fK'),sx=QS('input[name=sx]:checked')?.value||'',ed=GV('fDT'),bd=GV('fBD'),ct=QS('input[name=ct]:checked')?.value||'',wn=isP()?'離乳完了後':'離乳完了前',items=gCL();
   const fd=d=>{if(!d)return'';const p=d.split('-');return p[0]+'年'+parseInt(p[1])+'月'+parseInt(p[2])+'日'};
-  const as=ay?(ay+'歳'+(am?am+'ヶ月':'')):'';
+  const as=AGE_Y+'歳'+(AGE_M?AGE_M+'ヶ月':'');
   const title=(ka?ka+'_':'')+(nm||'口腔機能発達不全症');
 
   let h=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${title}</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans JP',sans-serif;color:#1e293b;font-size:10px;line-height:1.4}
-.pg{width:210mm;min-height:297mm;max-height:297mm;overflow:hidden;padding:12mm 15mm;page-break-after:always;position:relative}
+body{font-family:'Noto Sans JP',sans-serif;color:#1e293b;font-size:9px;line-height:1.35}
+.pg{width:210mm;height:297mm;overflow:hidden;padding:10mm 12mm;page-break-after:always;position:relative}
 .pg:last-child{page-break-after:auto}
-h1{font-size:14px;text-align:center;margin-bottom:8px;border-bottom:2px solid #1e293b;padding-bottom:4px}
-h2{font-size:11px;margin:6px 0 4px;padding:2px 6px;background:#f1f5f9;border-left:3px solid #2563eb}
-table{width:100%;border-collapse:collapse;margin-bottom:6px}
-th,td{border:1px solid #cbd5e1;padding:3px 5px;text-align:left;font-size:9px}
+h1{font-size:13px;text-align:center;margin-bottom:6px;border-bottom:2px solid #1e293b;padding-bottom:3px}
+h2{font-size:10px;margin:5px 0 3px;padding:2px 5px;background:#f1f5f9;border-left:3px solid #2563eb}
+table{width:100%;border-collapse:collapse;margin-bottom:4px}
+th,td{border:1px solid #cbd5e1;padding:2px 4px;text-align:left;font-size:8px}
 th{background:#f1f5f9;font-weight:600}
-.hi td{border:none;padding:1px 5px}.hi .l{color:#64748b;font-size:8px}.hi .v{font-weight:600;font-size:10px}
-.dx{text-align:center;padding:6px;margin:6px 0;border:2px solid #cbd5e1;border-radius:4px}
+.hi td{border:none;padding:1px 4px}.hi .l{color:#64748b;font-size:7px}.hi .v{font-weight:600;font-size:9px}
+.dx{text-align:center;padding:5px;margin:4px 0;border:2px solid #cbd5e1;border-radius:4px}
 .dx.hit{border-color:#ef4444;background:#fef2f2}
 .ep{color:#dc2626;font-weight:600}
-.pt2{white-space:pre-wrap;font-size:9px;line-height:1.4;border:1px solid #cbd5e1;padding:5px;max-height:80px;overflow:hidden}
-.memo-box{border:1px solid #e2e8f0;min-height:120px;margin-top:4px;border-radius:4px;padding:6px}
-@media print{.pg{padding:10mm 12mm}}
+.pt2{white-space:pre-wrap;font-size:8px;line-height:1.4;border:1px solid #cbd5e1;padding:4px}
+.memo-box{border:1px solid #e2e8f0;height:100px;margin-top:3px;border-radius:4px;padding:4px}
+@media print{.pg{padding:8mm 10mm}}
 </style></head><body>`;
 
-  // === P1: チェックリスト ===
+  // P1
   h+=`<div class="pg"><h1>チェックリスト記録用紙（${wn}）</h1>
 <table class="hi"><tr><td class="l">No.</td><td class="v">${ka}</td><td class="l">氏名</td><td class="v">${nm}</td><td class="l">年齢</td><td class="v">${as}</td><td class="l">性別</td><td class="v">${sx}</td></tr>
 <tr><td class="l">生年月日</td><td class="v">${fd(bd)}</td><td class="l">診察日</td><td class="v">${fd(ed)}</td><td class="l">区分</td><td class="v">${ct}</td><td></td><td></td></tr></table>
 <table><thead><tr><th>A機能</th><th>B分類</th><th>C項目</th><th>D該当項目</th><th>評価</th></tr></thead><tbody>`;
   let pf='',pc='';
   items.forEach(it=>{
-    h+='<tr>';
-    if(it.f!==pf){const rs=items.filter(x=>x.f===it.f).length;h+=`<td rowspan="${rs}" style="font-weight:600;background:#eff6ff">${it.f}</td>`;pf=it.f}
+    h+='<tr>';if(it.f!==pf){const rs=items.filter(x=>x.f===it.f).length;h+=`<td rowspan="${rs}" style="font-weight:600;background:#eff6ff">${it.f}</td>`;pf=it.f}
     if(it.c!==pc){const rs=items.filter(x=>x.c===it.c).length;h+=`<td rowspan="${rs}">${it.c}</td>`;pc=it.c}
-    const v=CS[it.id]||'ok';
-    h+=`<td style="font-weight:600;color:#2563eb">${it.id}</td><td>${it.t}</td><td class="${v==='problem'?'ep':''}">${v==='problem'?'☑ あり':'□ 問題なし'}</td></tr>`;
+    const v=CS[it.id]||'ok';h+=`<td style="font-weight:600;color:#2563eb">${it.id}</td><td>${it.t}</td><td class="${v==='problem'?'ep':''}">${v==='problem'?'☑ あり':'□ 問題なし'}</td></tr>`;
   });
   h+='</tbody></table>';
-  const tot=items.filter(it=>CS[it.id]==='problem').length;
-  const dx2=$('dR').textContent.includes('該当')&&!$('dR').textContent.includes('非');
-  const lipV=V('fLP'),tpV=V('fTP2');
-  if(lipV||tpV){
-    h+='<table><thead><tr><th colspan="2">検査項目</th><th>測定値</th></tr></thead><tbody>';
-    if(lipV)h+='<tr><td colspan="2">口唇閉鎖力検査</td><td>'+lipV+' N</td></tr>';
-    if(tpV)h+='<tr><td colspan="2">舌圧検査</td><td>'+tpV+' kPa</td></tr>';
-    h+='</tbody></table>';
-  }
-  h+=`<div class="dx${dx2?' hit':''}"><div style="font-size:10px">D該当項目数: <strong style="font-size:16px">${tot}</strong></div><div style="font-size:13px;font-weight:700;margin-top:2px">${dx2?'口腔機能発達不全症　該当':'非該当'}</div></div></div>`;
+  const lipV=GV('fLP'),tpV=GV('fTP2');
+  if(lipV||tpV){h+='<table><tr><th>検査項目</th><th>測定値</th><th>判定</th></tr>';
+    if(lipV){const th=getLipTh();h+='<tr><td>口唇閉鎖力検査</td><td>'+lipV+' N</td><td>'+(th!==null?(parseFloat(lipV)<=th?'<span class="ep">低下</span>':'正常'):'—')+'</td></tr>';}
+    if(tpV){const th=getTpTh();h+='<tr><td>舌圧検査</td><td>'+tpV+' kPa</td><td>'+(th!==null?(parseFloat(tpV)<th?'<span class="ep">低下</span>':'正常'):'—')+'</td></tr>';}
+    h+='</table>';}
+  const tot=items.filter(it=>CS[it.id]==='problem').length;const dx2=EL('dR').textContent.includes('該当')&&!EL('dR').textContent.includes('非');
+  h+=`<div class="dx${dx2?' hit':''}"><div style="font-size:9px">D該当項目数: <strong style="font-size:14px">${tot}</strong></div><div style="font-size:12px;font-weight:700;margin-top:2px">${dx2?'口腔機能発達不全症　該当':'非該当'}</div></div></div>`;
 
-  // === P2: 管理計画書 ===
+  // P2
   h+=`<div class="pg"><h1>管理計画書</h1>
 <table class="hi"><tr><td class="l">No.</td><td class="v">${ka}</td><td class="l">氏名</td><td class="v">${nm}</td><td class="l">年齢</td><td class="v">${as}</td><td class="l">性別</td><td class="v">${sx}</td></tr></table>
 <h2>管理計画</h2><table><thead><tr><th>項目</th><th>評価</th><th>管理の計画</th></tr></thead><tbody>`;
-  items.forEach(it=>{
-    const v=CS[it.id]||'ok',pi=$('pl_'+it.id);
-    h+=`<tr><td>${it.id} ${it.t}</td><td>${v==='problem'?'<span class="ep">あり</span>':'問題なし'}</td><td>${v==='problem'?(pi?.value||'指導・訓練'):''}</td></tr>`;
-  });
+  items.forEach(it=>{const v=CS[it.id]||'ok',pi=EL('pl_'+it.id);
+    h+=`<tr><td>${it.id} ${it.t}</td><td>${v==='problem'?'<span class="ep">あり</span>':'問題なし'}</td><td>${v==='problem'?(pi?.value||'指導・訓練'):''}</td></tr>`;});
   h+=`</tbody></table>
-<h2>管理方針・目標・治療予定等</h2><div class="pt2">${V('fG')}</div>
-<h2>再評価の時期・治療期間</h2>
-<table><tr><td>治療期間</td><td>(${V('fTP')})ヶ月</td><td>再評価</td><td>約(${V('fRP')})ヶ月後</td></tr>
-<tr><td>来院間隔</td><td>(${V('fVI')})ヶ月ごと</td><td>写真撮影</td><td>(${V('fPI')})ヶ月ごと</td></tr></table>`;
-  const memo=V('fMemo');
+<h2>管理方針・目標・治療予定等</h2><div class="pt2">${GV('fG')}</div>
+<h2>再評価の時期・治療目安期間</h2>
+<table><tr><td>治療目安期間</td><td>(${GV('fTP')})ヶ月</td><td>再評価</td><td>約(${GV('fRP')})ヶ月後</td></tr>
+<tr><td>来院間隔</td><td>(${GV('fVI')})ヶ月ごと</td><td>写真撮影</td><td>(${GV('fPI')})ヶ月ごと</td></tr></table>`;
+  const memo=GV('fMemo');
   if(memo)h+=`<h2>自由記載</h2><div class="pt2">${memo}</div>`;
   h+=`</div>`;
 
-  // === P3: 保護者向け資料 ===
+  // P3
   h+=`<div class="pg"><h1>保護者向けトレーニング資料</h1>
 <table class="hi"><tr><td class="l">氏名</td><td class="v">${nm}</td><td class="l">年齢</td><td class="v">${as}</td><td class="l">診察日</td><td class="v">${fd(ed)}</td></tr></table>
-<div style="background:#eff6ff;padding:6px 8px;border-radius:4px;margin:6px 0;font-size:10px">お子さまの口腔機能の発達を促すトレーニングです。毎日続けましょう。</div>`;
+<div style="background:#eff6ff;padding:5px 8px;border-radius:4px;margin:5px 0;font-size:9px">お子さまの口腔機能の発達を促すトレーニングです。毎日続けましょう。</div>`;
   let hasTR=false;
-  Object.entries(TR).forEach(([k,cat])=>{
-    const sel=ST[k]||[];
-    if(sel.length){
-      hasTR=true;
-      h+=`<h2>${cat.l}</h2>`;
-      sel.forEach(sx2=>{
-        const it=cat.i.find(z=>z.x===sx2);
-        if(it)h+=`<div style="padding:3px 0;border-bottom:1px dotted #e2e8f0;font-size:10px"><strong>${it.n}</strong> — ${it.d}</div>`;
-      });
-    }
-  });
-  if(!hasTR)h+='<div style="text-align:center;color:#94a3b8;padding:30px;font-size:10px">トレーニング未選択</div>';
-  h+=`<div style="margin-top:12px;border-top:1px solid #e2e8f0;padding-top:6px"><strong style="font-size:10px">メモ</strong><div class="memo-box"></div></div></div></body></html>`;
+  Object.entries(TR).forEach(([k,cat])=>{const sel=ST[k]||[];if(sel.length){hasTR=true;h+=`<h2>${cat.l}</h2>`;
+    sel.forEach(sx2=>{const it=cat.i.find(z=>z.x===sx2);if(it)h+=`<div style="padding:2px 0;border-bottom:1px dotted #e2e8f0;font-size:9px"><strong>${it.n}</strong> — ${it.d}</div>`})}});
+  if(!hasTR)h+='<div style="text-align:center;color:#94a3b8;padding:20px;font-size:9px">トレーニング未選択</div>';
+  h+=`<div style="margin-top:8px;border-top:1px solid #e2e8f0;padding-top:4px"><strong style="font-size:9px">メモ</strong><div class="memo-box"></div></div></div></body></html>`;
   return h;
 }
 
-function outputPDF(){
-  const html=buildPrintHTML();
-  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const ka=V('fK'),nm=V('fN');
-  const fn=(ka?ka+'_':'')+(nm||'口腔機能発達不全症')+'.html';
-  const a=document.createElement('a');
-  a.href=url;a.download=fn;
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-  setTimeout(()=>URL.revokeObjectURL(url),3000);
-}
-function outputPrint(){
-  const html=buildPrintHTML();
+// ===== Output: PDF save = open new window with title for "save as PDF" =====
+function doPDF(){
+  const html=mkHTML();
   const w=window.open('','_blank');
-  if(!w){alert('ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。');return}
-  w.document.write(html);w.document.close();
-  w.onload=function(){setTimeout(()=>w.print(),600)};
-  setTimeout(()=>{try{w.print()}catch(e){}},1500);
+  if(!w){alert('ポップアップを許可してください');return;}
+  w.document.write(html);
+  w.document.close();
+  // Do NOT auto-print for PDF save — user saves via browser menu or Ctrl+S
+}
+
+// ===== Output: Print = open and auto-print =====
+function doPrint(){
+  const html=mkHTML();
+  const w=window.open('','_blank');
+  if(!w){alert('ポップアップを許可してください');return;}
+  w.document.write(html);
+  w.document.close();
+  w.onload=function(){setTimeout(function(){w.print();},600);};
+  setTimeout(function(){try{w.print();}catch(e){}},1500);
 }
 
 bCL();bTR();calcAge();
