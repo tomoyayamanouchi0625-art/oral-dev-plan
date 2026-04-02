@@ -155,8 +155,8 @@
 
 <div class="sc"><div class="sh"><div class="st">帳票出力</div></div><div class="sb2">
 <div style="display:flex;flex-direction:column;gap:12px">
-<button class="btn bp" onclick="doPDF()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">📄 PDF保存（印刷画面で「PDFに保存」を選択）</button>
-<button class="btn bo" onclick="doPrint()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">🖨 直接印刷（プリンターを選択）</button>
+<button class="btn bp" onclick="doPDF()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">📄 PDF保存</button>
+<button class="btn bo" onclick="doPrint()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">🖨 直接印刷</button>
 </div>
 </div></div>
 </main>
@@ -384,7 +384,10 @@ th{background:#f1f5f9;font-weight:600}
   items.forEach(it=>{
     h+='<tr>';if(it.f!==pf){const rs=items.filter(x=>x.f===it.f).length;h+=`<td rowspan="${rs}" style="font-weight:600;background:#eff6ff">${it.f}</td>`;pf=it.f}
     if(it.c!==pc){const rs=items.filter(x=>x.c===it.c).length;h+=`<td rowspan="${rs}">${it.c}</td>`;pc=it.c}
-    const v=CS[it.id]||'ok';h+=`<td style="font-weight:600;color:#2563eb">${it.id}</td><td>${it.t}</td><td class="${v==='problem'?'ep':''}">${v==='problem'?'☑ あり':'□ 問題なし'}</td></tr>`;
+    const v=CS[it.id]||'ok';
+    let itemText=it.t;
+    if(it.fr){const ftEl=EL('ft_'+it.id);if(ftEl&&ftEl.value)itemText+='（'+ftEl.value+'）';}
+    h+=`<td style="font-weight:600;color:#2563eb">${it.id}</td><td>${itemText}</td><td class="${v==='problem'?'ep':''}">${v==='problem'?'☑ あり':'□ 問題なし'}</td></tr>`;
   });
   h+='</tbody></table>';
   const lipV=GV('fLP'),tpV=GV('fTP2');
@@ -400,7 +403,9 @@ th{background:#f1f5f9;font-weight:600}
 <table class="hi"><tr><td class="l">No.</td><td class="v">${ka}</td><td class="l">氏名</td><td class="v">${nm}</td><td class="l">年齢</td><td class="v">${as}</td><td class="l">性別</td><td class="v">${sx}</td></tr></table>
 <h2>管理計画</h2><table><thead><tr><th>項目</th><th>評価</th><th>管理の計画</th></tr></thead><tbody>`;
   items.forEach(it=>{const v=CS[it.id]||'ok',pi=EL('pl_'+it.id);
-    h+=`<tr><td>${it.id} ${it.t}</td><td>${v==='problem'?'<span class="ep">あり</span>':'問題なし'}</td><td>${v==='problem'?(pi?.value||'指導・訓練'):''}</td></tr>`;});
+    let itemText=it.id+' '+it.t;
+    if(it.fr){const ftEl=EL('ft_'+it.id);if(ftEl&&ftEl.value)itemText+='（'+ftEl.value+'）';}
+    h+=`<tr><td>${itemText}</td><td>${v==='problem'?'<span class="ep">あり</span>':'問題なし'}</td><td>${v==='problem'?(pi?.value||'指導・訓練'):''}</td></tr>`;});
   h+=`</tbody></table>
 <h2>管理方針・目標・治療予定等</h2><div class="pt2">${GV('fG')}</div>
 <h2>再評価の時期・治療目安期間</h2>
@@ -422,40 +427,43 @@ th{background:#f1f5f9;font-weight:600}
   return h;
 }
 
-// ===== Output functions (iPad/tablet compatible) =====
-function openOutput(){
+// ===== Output =====
+function getOutputHTML(){
   var html=mkHTML();
-  // Use hidden iframe for reliable print on iPad
-  var id='printFrame';
-  var old=document.getElementById(id);
-  if(old)old.remove();
-  var iframe=document.createElement('iframe');
-  iframe.id=id;
-  iframe.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
-  document.body.appendChild(iframe);
-  var doc=iframe.contentWindow.document;
-  doc.open();doc.write(html);doc.close();
-  return iframe;
+  // Add print-on-load script for print button
+  return html;
 }
 
 function doPDF(){
-  var iframe=openOutput();
-  // Wait for content to render then trigger print
-  setTimeout(function(){
-    try{
-      iframe.contentWindow.focus();
-      iframe.contentWindow.print();
-    }catch(e){
-      // Fallback: open in new tab
-      var w=window.open('','_blank');
-      if(w){w.document.write(mkHTML());w.document.close();}
-      else{alert('ポップアップを許可してください');}
-    }
-  },800);
+  var html=mkHTML();
+  // Method: open in new window, user uses browser share/print > Save as PDF
+  // Add instruction banner at top for user guidance
+  var instructionHTML=html.replace('<body>',
+    '<body><div id="pdfBanner" style="background:#2563eb;color:#fff;padding:12px 20px;text-align:center;font-size:14px;font-weight:600;position:fixed;top:0;left:0;right:0;z-index:9999">' +
+    '📄 このページをPDFで保存してください → ' +
+    '<button onclick="window.print();this.parentElement.style.display=\'none\'" style="background:#fff;color:#2563eb;border:none;padding:8px 20px;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin-left:8px">印刷 / PDF保存を実行</button>' +
+    '<button onclick="this.parentElement.style.display=\'none\'" style="background:transparent;color:#fff;border:1px solid #fff;padding:8px 16px;border-radius:6px;font-size:12px;cursor:pointer;margin-left:8px">✕ 閉じる</button>' +
+    '</div><div style="height:50px"></div>');
+
+  var w=window.open('','_blank');
+  if(w){
+    w.document.write(instructionHTML);
+    w.document.close();
+  }else{
+    // Fallback for popup blocked: use current page iframe
+    alert('新しいタブが開けませんでした。ポップアップを許可してもう一度お試しください。');
+  }
 }
 
 function doPrint(){
-  doPDF();
+  var html=mkHTML();
+  var w=window.open('','_blank');
+  if(!w){alert('ポップアップを許可してください');return;}
+  // Add auto-print script
+  var printHTML=html.replace('</body>',
+    '<script>window.onload=function(){setTimeout(function(){window.print()},500)};<\/script></body>');
+  w.document.write(printHTML);
+  w.document.close();
 }
 
 bCL();bTR();calcAge();
