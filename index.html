@@ -121,25 +121,15 @@
 <main class="mn">
 <div class="intro"><h2>Oral Dev Plan</h2><p>患者基本情報、チェックリスト評価、管理計画、保護者向けトレーニング内容を整理し、<strong>口腔機能発達不全症</strong>の判定と<strong>小児口腔機能管理料</strong>の算定可否を常時確認しながら帳票を作成できます。</p></div>
 
-<div class="sc"><div class="sh"><div class="sn">01</div><div class="st">出力操作</div></div><div class="sb2">
-<div class="inf"><strong>出力対象帳票</strong><br>チェックリスト記録用紙、管理計画書、保護者向けトレーニング資料を見やすい体裁でまとめて出力します。</div>
-<div style="display:grid;gap:8px;margin-bottom:16px">
-<div class="oc"><div class="oi" style="background:var(--pl)">📋</div><div><strong>チェックリスト記録用紙</strong><br><span style="font-size:12px;color:var(--g500)">評価結果を院内保管用にまとめます。</span></div></div>
-<div class="oc"><div class="oi" style="background:var(--sl)">📑</div><div><strong>管理計画書</strong><br><span style="font-size:12px;color:var(--g500)">管理計画、再評価予定を反映します。</span></div></div>
-<div class="oc"><div class="oi" style="background:#fef3c7">📖</div><div><strong>保護者向け資料</strong><br><span style="font-size:12px;color:var(--g500)">選択したトレーニング内容を配布できます。</span></div></div>
-</div>
-<div class="bg"><button class="btn bp" onclick="outputPDF()">📄 3資料をまとめてPDF出力</button><button class="btn bo" onclick="outputPrint()">🖨 3資料をまとめて直接印刷</button></div>
-</div></div>
-
-<div class="sc"><div class="sh"><div class="sn">02</div><div class="st">患者基本情報</div></div><div class="sb2">
+<div class="sc"><div class="sh"><div class="st">患者基本情報</div></div><div class="sb2">
 <div class="inf">各帳票のヘッダに反映される基本情報です。</div>
 <div class="fg">
 <div class="fi"><label>カルテNo.</label><input type="text" id="fK"></div>
 <div class="fi"><label>患者氏名</label><input type="text" id="fN"></div>
 <div class="fi"><label>ふりがな</label><input type="text" id="fF"></div>
-<div class="fi"><label>年齢</label><div style="display:flex;gap:6px;align-items:center"><input type="number" id="fAY" min="0" max="17" style="width:70px" onchange="cD()"><span>歳</span><input type="number" id="fAM" min="0" max="11" style="width:70px"><span>ヶ月</span></div></div>
-<div class="fi"><label>生年月日</label><input type="date" id="fBD"></div>
-<div class="fi"><label>診察日</label><input type="date" id="fDT"></div>
+<div class="fi"><label>生年月日</label><input type="date" id="fBD" value="2020-01-01" onchange="calcAge()"></div>
+<div class="fi"><label>年齢（自動計算）</label><div style="display:flex;gap:6px;align-items:center"><input type="number" id="fAY" style="width:70px;background:var(--g100);color:var(--g700)" readonly><span>歳</span><input type="number" id="fAM" style="width:70px;background:var(--g100);color:var(--g700)" readonly><span>ヶ月</span></div></div>
+<div class="fi"><label>診察日</label><input type="date" id="fDT" onchange="calcAge()"></div>
 <div class="fi"><label>性別</label><div class="rg"><label class="ro" onclick="sR(this)"><input type="radio" name="sx" value="男">男</label><label class="ro" onclick="sR(this)"><input type="radio" name="sx" value="女">女</label></div></div>
 </div>
 <div class="sst">作成区分</div>
@@ -151,7 +141,7 @@
 <p style="font-size:12px;color:var(--g500);margin-top:4px">検査項目以外の算定要件を満たしていない場合はチェックを外してください。</p>
 </div></div>
 
-<div class="sc"><div class="sh"><div class="sn">03</div><div class="st" id="cT">チェックリスト評価（離乳完了後）</div></div><div class="sb2">
+<div class="sc"><div class="sh"><div class="st" id="cT">チェックリスト評価（離乳完了後）</div></div><div class="sb2">
 <div class="inf">各項目の「問題なし」「あり」を選択してください。</div>
 <div id="cB"></div>
 <div class="sst">口唇閉鎖力検査</div>
@@ -166,7 +156,7 @@
 </div>
 </div></div>
 
-<div class="sc"><div class="sh"><div class="sn">04</div><div class="st">管理計画書入力</div></div><div class="sb2">
+<div class="sc"><div class="sh"><div class="st">管理計画書入力</div></div><div class="sb2">
 <div class="inf">チェックリストの評価結果に基づき管理計画を入力してください。</div>
 <div id="pB"></div>
 <div class="sst">管理方針・目標（ゴール）・治療予定等</div>
@@ -182,26 +172,18 @@
 <textarea id="fMemo" style="width:100%;min-height:100px;padding:12px;border:1px solid var(--g300);border-radius:var(--rs);font-family:inherit;font-size:13px;line-height:1.7;resize:vertical" placeholder="その他特記事項、保護者への伝達事項などを自由に記載してください。"></textarea>
 </div></div>
 
-<div class="sc"><div class="sh"><div class="sn">05</div><div class="st">保護者向けトレーニング選択</div></div><div class="sb2">
+<div class="sc"><div class="sh"><div class="st">保護者向けトレーニング選択</div></div><div class="sb2">
 <div class="inf">各項目ごとに最大5つまで選択できます。選択した内容は保護者向け資料に反映されます。</div>
 <div id="tB"></div>
 </div></div>
 
 <!-- Footer Output Section -->
 <div class="sc" id="sec-footer-output">
-<div class="sh"><div class="sn">06</div><div class="st">帳票出力</div></div>
+<div class="sh"><div class="st">帳票出力</div></div>
 <div class="sb2">
-<div class="inf">すべての入力が完了したら、以下のボタンから帳票を出力してください。<strong>3種類の帳票</strong>（チェックリスト記録用紙・管理計画書・保護者向けトレーニング資料）をまとめて出力します。</div>
-<div style="display:grid;gap:8px;margin-bottom:20px">
-<div class="oc"><div class="oi" style="background:var(--pl)">📋</div><div><strong>チェックリスト記録用紙</strong><br><span style="font-size:12px;color:var(--g500)">評価結果を院内保管用にまとめます。</span></div></div>
-<div class="oc"><div class="oi" style="background:var(--sl)">📑</div><div><strong>管理計画書</strong><br><span style="font-size:12px;color:var(--g500)">管理計画、再評価予定を反映します。</span></div></div>
-<div class="oc"><div class="oi" style="background:#fef3c7">📖</div><div><strong>保護者向け資料</strong><br><span style="font-size:12px;color:var(--g500)">選択したトレーニング内容を配布できます。</span></div></div>
-</div>
 <div style="display:flex;flex-direction:column;gap:12px">
 <button class="btn bp" onclick="outputPDF()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">📄 3資料をまとめてPDF出力</button>
-<p style="font-size:12px;color:var(--g500);text-align:center">ブラウザの印刷ダイアログが開きます。「PDFに保存」を選択してください。</p>
 <button class="btn bo" onclick="outputPrint()" style="width:100%;justify-content:center;padding:16px 24px;font-size:16px;border-radius:var(--r)">🖨 3資料をまとめて直接印刷</button>
-<p style="font-size:12px;color:var(--g500);text-align:center">印刷ダイアログが開きます。プリンターを選択して印刷してください。</p>
 </div>
 </div></div>
 
@@ -342,51 +324,131 @@ function bTR(){
     h+='</div></div>'});$('tB').innerHTML=h}
 function tT(k,x){if(!ST[k])ST[k]=[];const a=ST[k],i=a.indexOf(x);if(i>=0)a.splice(i,1);else{if(a.length>=5){alert('最大5つまでです');return}a.push(x)}bTR()}
 
-// ===== PDF & Print =====
-function openPrintWindow(autoPrint){
-  const w=window.open('','_blank','width=900,height=700');
-  if(!w){alert('ポップアップがブロックされました。ブラウザの設定でポップアップを許可してください。');return}
-  w.document.write(bPH());
-  w.document.close();
-  if(autoPrint){
-    // Wait for fonts and content to load
-    w.onload=function(){setTimeout(()=>w.print(),400)};
-    // Fallback if onload doesn't fire
-    setTimeout(()=>{try{w.print()}catch(e){}},1500);
-  }
+// ===== Age Calculation =====
+function calcAge(){
+  const bd=V('fBD'),ed=V('fDT');
+  if(!bd||!ed)return;
+  const b=new Date(bd),e=new Date(ed);
+  if(isNaN(b)||isNaN(e)||e<b)return;
+  let y=e.getFullYear()-b.getFullYear();
+  let m=e.getMonth()-b.getMonth();
+  if(e.getDate()<b.getDate())m--;
+  if(m<0){y--;m+=12}
+  $('fAY').value=y;$('fAM').value=m;
+  cD();
 }
-function outputPDF(){openPrintWindow(true)}
-function outputPrint(){openPrintWindow(true)}
-function bPH(){
+
+// ===== PDF & Print =====
+function buildPrintHTML(){
   const nm=V('fN'),ka=V('fK'),ay=V('fAY'),am=V('fAM'),sx=Q('input[name=sx]:checked')?.value||'',ed=V('fDT'),bd=V('fBD'),ct=Q('input[name=ct]:checked')?.value||'',wn=isP()?'離乳完了後':'離乳完了前',items=gCL();
-  const fd=d=>{if(!d)return'';const p=d.split('-');return p[0]+'年'+parseInt(p[1])+'月'+parseInt(p[2])+'日'};const as=ay?(ay+'歳'+(am?am+'ヶ月':'')):'';
-  let h=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${ka?ka+'_':''}${nm||'口腔機能発達不全症'}</title><style>@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap');*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans JP',sans-serif;color:#1e293b;font-size:11px;line-height:1.5}.pg{padding:15mm;page-break-after:always}.pg:last-child{page-break-after:auto}h1{font-size:15px;text-align:center;margin-bottom:10px;border-bottom:2px solid #1e293b;padding-bottom:5px}h2{font-size:12px;margin:10px 0 5px;padding:3px 8px;background:#f1f5f9;border-left:3px solid #2563eb}table{width:100%;border-collapse:collapse;margin-bottom:8px}th,td{border:1px solid #cbd5e1;padding:4px 6px;text-align:left;font-size:10px}th{background:#f1f5f9;font-weight:600}.hi td{border:none;padding:2px 6px}.hi .l{color:#64748b;font-size:9px}.hi .v{font-weight:600;font-size:11px}.dx{text-align:center;padding:10px;margin:8px 0;border:2px solid #cbd5e1;border-radius:4px}.dx.hit{border-color:#ef4444;background:#fef2f2}.ep{color:#dc2626;font-weight:600}.pt2{white-space:pre-wrap;font-size:10px;line-height:1.6;border:1px solid #cbd5e1;padding:8px}@media print{.pg{padding:10mm}}</style></head><body>`;
-  // P1
-  h+=`<div class="pg"><h1>チェックリスト記録用紙（${wn}）</h1><table class="hi"><tr><td class="l">No.</td><td class="v">${ka}</td><td class="l">氏名</td><td class="v">${nm}</td><td class="l">年齢</td><td class="v">${as}</td><td class="l">性別</td><td class="v">${sx}</td></tr><tr><td class="l">生年月日</td><td class="v">${fd(bd)}</td><td class="l">診察日</td><td class="v">${fd(ed)}</td><td class="l">区分</td><td class="v">${ct}</td><td></td><td></td></tr></table><table><thead><tr><th>A機能</th><th>B分類</th><th>C項目</th><th>D該当項目</th><th>評価</th></tr></thead><tbody>`;
-  let pf='',pc='';items.forEach(it=>{h+='<tr>';if(it.f!==pf){const rs=items.filter(x=>x.f===it.f).length;h+=`<td rowspan="${rs}" style="font-weight:600;background:#eff6ff">${it.f}</td>`;pf=it.f}if(it.c!==pc){const rs=items.filter(x=>x.c===it.c).length;h+=`<td rowspan="${rs}">${it.c}</td>`;pc=it.c}const v=CS[it.id]||'ok';h+=`<td style="font-weight:600;color:#2563eb">${it.id}</td><td>${it.t}</td><td class="${v==='problem'?'ep':''}">${v==='problem'?'☑ あり':'□ 問題なし'}</td></tr>`});h+='</tbody></table>';
-  const tot=items.filter(it=>CS[it.id]==='problem').length;const dx2=$('dR').textContent.includes('該当')&&!$('dR').textContent.includes('非');
+  const fd=d=>{if(!d)return'';const p=d.split('-');return p[0]+'年'+parseInt(p[1])+'月'+parseInt(p[2])+'日'};
+  const as=ay?(ay+'歳'+(am?am+'ヶ月':'')):'';
+  const title=(ka?ka+'_':'')+(nm||'口腔機能発達不全症');
+
+  let h=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${title}</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans JP',sans-serif;color:#1e293b;font-size:10px;line-height:1.4}
+.pg{width:210mm;min-height:297mm;max-height:297mm;overflow:hidden;padding:12mm 15mm;page-break-after:always;position:relative}
+.pg:last-child{page-break-after:auto}
+h1{font-size:14px;text-align:center;margin-bottom:8px;border-bottom:2px solid #1e293b;padding-bottom:4px}
+h2{font-size:11px;margin:6px 0 4px;padding:2px 6px;background:#f1f5f9;border-left:3px solid #2563eb}
+table{width:100%;border-collapse:collapse;margin-bottom:6px}
+th,td{border:1px solid #cbd5e1;padding:3px 5px;text-align:left;font-size:9px}
+th{background:#f1f5f9;font-weight:600}
+.hi td{border:none;padding:1px 5px}.hi .l{color:#64748b;font-size:8px}.hi .v{font-weight:600;font-size:10px}
+.dx{text-align:center;padding:6px;margin:6px 0;border:2px solid #cbd5e1;border-radius:4px}
+.dx.hit{border-color:#ef4444;background:#fef2f2}
+.ep{color:#dc2626;font-weight:600}
+.pt2{white-space:pre-wrap;font-size:9px;line-height:1.4;border:1px solid #cbd5e1;padding:5px;max-height:80px;overflow:hidden}
+.memo-box{border:1px solid #e2e8f0;min-height:120px;margin-top:4px;border-radius:4px;padding:6px}
+@media print{.pg{padding:10mm 12mm}}
+</style></head><body>`;
+
+  // === P1: チェックリスト ===
+  h+=`<div class="pg"><h1>チェックリスト記録用紙（${wn}）</h1>
+<table class="hi"><tr><td class="l">No.</td><td class="v">${ka}</td><td class="l">氏名</td><td class="v">${nm}</td><td class="l">年齢</td><td class="v">${as}</td><td class="l">性別</td><td class="v">${sx}</td></tr>
+<tr><td class="l">生年月日</td><td class="v">${fd(bd)}</td><td class="l">診察日</td><td class="v">${fd(ed)}</td><td class="l">区分</td><td class="v">${ct}</td><td></td><td></td></tr></table>
+<table><thead><tr><th>A機能</th><th>B分類</th><th>C項目</th><th>D該当項目</th><th>評価</th></tr></thead><tbody>`;
+  let pf='',pc='';
+  items.forEach(it=>{
+    h+='<tr>';
+    if(it.f!==pf){const rs=items.filter(x=>x.f===it.f).length;h+=`<td rowspan="${rs}" style="font-weight:600;background:#eff6ff">${it.f}</td>`;pf=it.f}
+    if(it.c!==pc){const rs=items.filter(x=>x.c===it.c).length;h+=`<td rowspan="${rs}">${it.c}</td>`;pc=it.c}
+    const v=CS[it.id]||'ok';
+    h+=`<td style="font-weight:600;color:#2563eb">${it.id}</td><td>${it.t}</td><td class="${v==='problem'?'ep':''}">${v==='problem'?'☑ あり':'□ 問題なし'}</td></tr>`;
+  });
+  h+='</tbody></table>';
+  const tot=items.filter(it=>CS[it.id]==='problem').length;
+  const dx2=$('dR').textContent.includes('該当')&&!$('dR').textContent.includes('非');
   const lipV=V('fLP'),tpV=V('fTP2');
-  if(lipV||tpV){h+='<table><thead><tr><th colspan="2">検査項目</th><th>測定値</th></tr></thead><tbody>';
+  if(lipV||tpV){
+    h+='<table><thead><tr><th colspan="2">検査項目</th><th>測定値</th></tr></thead><tbody>';
     if(lipV)h+='<tr><td colspan="2">口唇閉鎖力検査</td><td>'+lipV+' N</td></tr>';
     if(tpV)h+='<tr><td colspan="2">舌圧検査</td><td>'+tpV+' kPa</td></tr>';
-    h+='</tbody></table>';}
-  h+=`<div class="dx${dx2?' hit':''}"><div style="font-size:11px">D該当項目数: <strong style="font-size:18px">${tot}</strong></div><div style="font-size:14px;font-weight:700;margin-top:4px">${dx2?'口腔機能発達不全症　該当':'非該当'}</div></div></div>`;
-  // P2
-  h+=`<div class="pg"><h1>管理計画書</h1><table class="hi"><tr><td class="l">No.</td><td class="v">${ka}</td><td class="l">氏名</td><td class="v">${nm}</td><td class="l">年齢</td><td class="v">${as}</td><td class="l">性別</td><td class="v">${sx}</td></tr></table><h2>管理計画</h2><table><thead><tr><th>項目</th><th>評価</th><th>管理の計画</th></tr></thead><tbody>`;
-  items.forEach(it=>{const v=CS[it.id]||'ok',pi=$('pl_'+it.id);h+=`<tr><td>${it.id} ${it.t}</td><td>${v==='problem'?'<span class="ep">あり</span>':'問題なし'}</td><td>${v==='problem'?(pi?.value||'指導・訓練'):''}</td></tr>`});
-  h+=`</tbody></table><h2>管理方針・目標・治療予定等</h2><div class="pt2">${V('fG')}</div><h2>再評価の時期・治療期間</h2><table><tr><td>治療期間</td><td>(${V('fTP')})ヶ月</td><td>再評価</td><td>約(${V('fRP')})ヶ月後</td></tr><tr><td>来院間隔</td><td>(${V('fVI')})ヶ月ごと</td><td>写真撮影</td><td>(${V('fPI')})ヶ月ごと</td></tr></table>`;
+    h+='</tbody></table>';
+  }
+  h+=`<div class="dx${dx2?' hit':''}"><div style="font-size:10px">D該当項目数: <strong style="font-size:16px">${tot}</strong></div><div style="font-size:13px;font-weight:700;margin-top:2px">${dx2?'口腔機能発達不全症　該当':'非該当'}</div></div></div>`;
+
+  // === P2: 管理計画書 ===
+  h+=`<div class="pg"><h1>管理計画書</h1>
+<table class="hi"><tr><td class="l">No.</td><td class="v">${ka}</td><td class="l">氏名</td><td class="v">${nm}</td><td class="l">年齢</td><td class="v">${as}</td><td class="l">性別</td><td class="v">${sx}</td></tr></table>
+<h2>管理計画</h2><table><thead><tr><th>項目</th><th>評価</th><th>管理の計画</th></tr></thead><tbody>`;
+  items.forEach(it=>{
+    const v=CS[it.id]||'ok',pi=$('pl_'+it.id);
+    h+=`<tr><td>${it.id} ${it.t}</td><td>${v==='problem'?'<span class="ep">あり</span>':'問題なし'}</td><td>${v==='problem'?(pi?.value||'指導・訓練'):''}</td></tr>`;
+  });
+  h+=`</tbody></table>
+<h2>管理方針・目標・治療予定等</h2><div class="pt2">${V('fG')}</div>
+<h2>再評価の時期・治療期間</h2>
+<table><tr><td>治療期間</td><td>(${V('fTP')})ヶ月</td><td>再評価</td><td>約(${V('fRP')})ヶ月後</td></tr>
+<tr><td>来院間隔</td><td>(${V('fVI')})ヶ月ごと</td><td>写真撮影</td><td>(${V('fPI')})ヶ月ごと</td></tr></table>`;
   const memo=V('fMemo');
   if(memo)h+=`<h2>自由記載</h2><div class="pt2">${memo}</div>`;
   h+=`</div>`;
-  // P3
-  h+=`<div class="pg"><h1>保護者向けトレーニング資料</h1><table class="hi"><tr><td class="l">氏名</td><td class="v">${nm}</td><td class="l">年齢</td><td class="v">${as}</td><td class="l">診察日</td><td class="v">${fd(ed)}</td></tr></table><div style="background:#eff6ff;padding:8px;border-radius:4px;margin:8px 0;font-size:11px">お子さまの口腔機能の発達を促すトレーニングです。毎日続けましょう。</div>`;
-  let hasTR=false;Object.entries(TR).forEach(([k,cat])=>{const sel=ST[k]||[];if(sel.length){hasTR=true;h+=`<h2>${cat.l}</h2>`;sel.forEach(sx2=>{const it=cat.i.find(z=>z.x===sx2);if(it)h+=`<div style="padding:4px 0;border-bottom:1px dotted #e2e8f0"><strong>${it.n}</strong> — ${it.d}</div>`})}});
-  if(!hasTR)h+='<div style="text-align:center;color:#94a3b8;padding:40px">トレーニング未選択</div>';
-  h+='<div style="margin-top:20px;border-top:1px solid #e2e8f0;padding-top:8px"><strong>メモ</strong><div style="border:1px solid #e2e8f0;min-height:150px;margin-top:4px;border-radius:4px;padding:8px"></div></div></div></body></html>';
+
+  // === P3: 保護者向け資料 ===
+  h+=`<div class="pg"><h1>保護者向けトレーニング資料</h1>
+<table class="hi"><tr><td class="l">氏名</td><td class="v">${nm}</td><td class="l">年齢</td><td class="v">${as}</td><td class="l">診察日</td><td class="v">${fd(ed)}</td></tr></table>
+<div style="background:#eff6ff;padding:6px 8px;border-radius:4px;margin:6px 0;font-size:10px">お子さまの口腔機能の発達を促すトレーニングです。毎日続けましょう。</div>`;
+  let hasTR=false;
+  Object.entries(TR).forEach(([k,cat])=>{
+    const sel=ST[k]||[];
+    if(sel.length){
+      hasTR=true;
+      h+=`<h2>${cat.l}</h2>`;
+      sel.forEach(sx2=>{
+        const it=cat.i.find(z=>z.x===sx2);
+        if(it)h+=`<div style="padding:3px 0;border-bottom:1px dotted #e2e8f0;font-size:10px"><strong>${it.n}</strong> — ${it.d}</div>`;
+      });
+    }
+  });
+  if(!hasTR)h+='<div style="text-align:center;color:#94a3b8;padding:30px;font-size:10px">トレーニング未選択</div>';
+  h+=`<div style="margin-top:12px;border-top:1px solid #e2e8f0;padding-top:6px"><strong style="font-size:10px">メモ</strong><div class="memo-box"></div></div></div></body></html>`;
   return h;
 }
 
-bCL();bTR();
+function outputPDF(){
+  const html=buildPrintHTML();
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const w=window.open(url,'_blank');
+  if(!w){
+    // Fallback: try iframe approach
+    const a=document.createElement('a');
+    a.href=url;
+    a.target='_blank';
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),5000);
+    return;
+  }
+  w.onload=function(){setTimeout(()=>{w.print()},800)};
+  setTimeout(()=>{try{w.print()}catch(e){}},2000);
+}
+function outputPrint(){outputPDF()}
+
+bCL();bTR();calcAge();
 </script>
 </body>
 </html>
